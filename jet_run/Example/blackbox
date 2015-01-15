@@ -1,0 +1,3 @@
+transfer
+#mpirun -r ssh -f mpd.hosts -n 4 -np 32 Executable/sp_blackbox_3d_Parallel
+mpirun -r ssh -f mpd.hosts -n 1 -np 1 Executable/sp_blackbox_3d_Parallel

@@ -1,0 +1,26 @@
+#! /bin/bash
+
+if [ -n "$1" ]
+then
+  X=$1
+else
+  X=1
+fi
+
+goplot 
+deletedat
+
+reorder  
+filelist $X
+
+#USE EITHER
+
+#  renumber $X
+
+#OR
+
+# To convert the original filename to Flow_n.plt, do
+  Data_List
+
+# To revert the Flow_n.plt back to the original filename, do
+# Flow_List

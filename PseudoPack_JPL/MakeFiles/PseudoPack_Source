@@ -1,0 +1,322 @@
+#==============================================================================
+
+PS_SOURCE_SUBDIR =	Algorithm                           \
+			Central_Method                      \
+			Euler                               \
+			FFT                                 \
+			File_Operation                      \
+			Graphics                            \
+			Header                              \
+			Hybrid_Method                       \
+			Interpolation                       \
+			Memory                              \
+			MPI                                 \
+				MPI/Initialization          \
+				MPI/Application             \
+			Multi_Resolution                    \
+			Physics                             \
+			PseudoPack_Module                   \
+			Shock                               \
+			Spectral_Method                     \
+				Spectral_Method/Chebyshev           \
+				Spectral_Method/Fourier             \
+				Spectral_Method/Legendre            \
+				Spectral_Method/Algorithm           \
+			Time_Step_Scheme                    \
+			Utility                             \
+			WENO_Method                         \
+				WENO_Method/Boundary_Condition     \
+				WENO_Method/General                \
+				WENO_Method/Scalar                 \
+				WENO_Method/Burgers                \
+				WENO_Method/Euler                  
+
+PS_SRC_SUBDIR = $(PS_SOURCE_SUBDIR:%=$(PS_SRCDIR)/%)
+
+#==============================================================================
+PS_Initialization = 	Module_IO_Units                     \
+			Module_PseudoPack_Type              \
+			Module_PseudoPack_Input             \
+			$(MPI_Initialization)               \
+			Module_OPEN_File                    \
+#------------------------------------------------------------------------
+Memory            =	Module_Memory_Units                 \
+			Module_Memory_Status                \
+	                                                    \
+			Module_PseudoPack_WorkSpace         \
+	  		Module_PseudoPack_Aux_Storage       \
+	  		Module_PseudoPack_Storage           \
+	                                                    \
+			Module_PseudoPack_Memory
+#------------------------------------------------------------------------
+Utility           =	Module_Counter                      \
+			Module_Timer                        \
+			Module_String_Handling              \
+			Module_String_Maker                 \
+			Module_Filename_Maker               \
+	                                                    \
+			Module_PseudoPack_Function
+#------------------------------------------------------------------------
+MPI_Initialization= 	Module_MPI_Header                   \
+			Module_MPI_Initialization           \
+			Module_MPI_Barrier                  \
+			Module_MPI_Abort                    \
+			Module_MPI_ShutDown                 \
+			Module_MPI_Processor_Topology       \
+			Module_MPI_Processor_Rank           \
+			Module_MPI_Sub_Communicator         \
+			Module_MPI_Data_Distribution        \
+			Module_MPI_Processor_Repartition    \
+	                                                    \
+			Module_PseudoPack_MPI_Initialization
+#------------------------------------------------------------------------
+MPI_Application   =	Module_MPI_Data_Exchange             \
+			Module_MPI_Ghost_Cell_Exchange       \
+			Module_MPI_Transpose_PESSL           \
+			Module_MPI_GEMM                      \
+			Module_MPI_GEMM_PESSL                \
+			Module_MPI_Differentiation           \
+			Module_MPI_Smoothing                 \
+			Module_MPI_Data_ReAssemble           \
+			Module_MPI_Data_DisAssemble          \
+			Module_MPI_Data_ReAssemble_v1        \
+			Module_MPI_Data_DisAssemble_v1       \
+			Module_MPI_Extend_Domain_Data        \
+			Module_MPI_WENO_Grid_Index_API       \
+			Module_MPI_Spectral_Grid_Index_API   \
+			Module_MPI_3D_Data_Slice_Matlab      \
+			Module_MPI_AllReduce                 \
+			Module_MPI_Global_Data_ReAssemble    \
+			Module_MPI_Global_Data_ReAssemble_v1 \
+	                                                     \
+			Module_PseudoPack_MPI_Application    \
+			Module_PseudoPack_MPI                 
+#------------------------------------------------------------------------
+FFT               =	Module_FFT_CRAY_JM                  \
+			Module_FFT_CRAY                     \
+			Module_FFT_ESSL                     \
+			Module_FFT_VFFT                     \
+	                                                    \
+			Module_FFT_2D                       \
+			Module_FFT_2D_ESSL                  \
+			Module_FFT_2D_Matrix                \
+	                                                    \
+			Module_PseudoPack_FFT
+#------------------------------------------------------------------------
+Algorithm         =	Module_Factorial_Function           \
+			Module_Gamma_Function               \
+			Module_Error_Function               \
+			Module_Gauss_Quadrature             \
+			Module_Function_Dot_Product         \
+			Module_GEMM                         \
+	                                                    \
+			Module_PseudoPack_Algorithm
+#------------------------------------------------------------------------
+Spectral_Method   =	Module_PseudoPack_Allocation        \
+	       		                                    \
+	       		Module_Grid_Auxillary_Subroutine    \
+	       		                                    \
+			Module_Fourier_Grid                 \
+			Module_Chebyshev_Grid               \
+			Module_Legendre_Grid                \
+	       		                                    \
+			Module_User_Defined_Map_Function    \
+			Module_User_Defined_Mapping         \
+			Module_Fourier_Mapping              \
+			Module_Chebyshev_Mapping            \
+			Module_Grid_Generation              \
+	       		                                    \
+			Module_Filter                       \
+			Module_Chebyshev_Coefficient        \
+	       		                                    \
+			Module_MXM_Auxillary_Subroutine     \
+			Module_MXM_Diff                     \
+			Module_MXM_Smth                     \
+	       		                                    \
+			Module_EOD_Auxillary_Subroutine     \
+			Module_EOD_Diff                     \
+			Module_EOD_Smth                     \
+	       		                                    \
+			Module_FFT_Auxillary_Subroutine     \
+			Module_F_Diff_FFT_Subroutine        \
+			Module_F_Smth_FFT_Subroutine        \
+	       		                                    \
+			Module_CFT_Auxillary_Subroutine     \
+			Module_C_Diff_CFT_Subroutine        \
+			Module_C_Smth_CFT_Subroutine        \
+	       		                                    \
+			Module_F_GL_MXM                     \
+			Module_F_GR_MXM                     \
+			Module_F_GL_EOD                     \
+			Module_F_Diff_MXM                   \
+			Module_F_Diff_EOD                   \
+			Module_F_Diff_FFT                   \
+			Module_F_Smth_MXM                   \
+			Module_F_Smth_EOD                   \
+			Module_F_Smth_FFT                   \
+	       		                                    \
+			Module_C_GL_MXM_Intel               \
+			Module_C_GR_MXM_Intel               \
+			Module_C_Ga_MXM_Intel               \
+			Module_C_GL_EOD                     \
+			Module_C_Ga_EOD                     \
+			Module_C_Diff_MXM                   \
+			Module_C_Diff_EOD                   \
+			Module_C_Diff_CFT                   \
+			Module_C_Smth_MXM                   \
+			Module_C_Smth_EOD                   \
+			Module_C_Smth_CFT                   \
+	       		                                    \
+			Module_L_GL_MXM                     \
+			Module_L_GR_MXM                     \
+			Module_L_Ga_MXM                     \
+			Module_L_Diff_MXM                   \
+			Module_L_Diff_EOD                   \
+			Module_L_Smth_XXX                   \
+	       		                                    \
+			Module_Differentiation              \
+			Module_Smoothing                    \
+	       		                                    \
+	  		Module_PseudoPack_Grid              \
+	  		Module_PseudoPack_Setup             \
+			Module_PseudoPack_Operation         \
+			Module_PseudoPack_Utility           \
+			Module_PseudoPack_Diff_Vector       \
+	       		                                    \
+			Module_PseudoPack_Spectral
+#------------------------------------------------------------------------
+Interpolation     =	Module_Lagrangian_Weight                    \
+			Module_Interpolation 	                    \
+		       		                                    \
+			Module_PseudoPack_Interpolation
+#------------------------------------------------------------------------
+Multi_Resolution  = 	Module_Multi_Resolution_Parameter           \
+			Module_Multi_Resolution                     \
+			Module_Multi_Resolution_Variable            \
+		       		                                    \
+			Module_PseudoPack_Multi_Resolution
+#------------------------------------------------------------------------
+Euler             =  	Module_Euler_Function                       \
+			Module_Euler_Eigensystem                    \
+			Module_Euler_Projection                     \
+			Module_Euler_Time_Step                      \
+			Module_Characteristic_Decomposition         \
+			Module_Primitive_Variable                   \
+	                                                            \
+			Module_PseudoPack_Euler
+#------------------------------------------------------------------------
+WENO_Method       = 	Module_WENO_Grid                            \
+			Module_WENO_Type                            \
+			Module_WENO_Option                          \
+			Module_WENO_Coefficients_1357911_Intel      \
+			Module_Lax_Friedrichs_Flux                  \
+			Module_Backward_Differencing                \
+	       		                                            \
+			Module_WENO_Scalar_Compact_JS            \
+			Module_WENO_Scalar_Compact_HAP           \
+			Module_WENO_Scalar_Compact_Zico          \
+			Module_WENO_Scalar_Compact                  \
+			Module_WENO_Scalar_Short_JS              \
+			Module_WENO_Scalar_Short_HAP             \
+			Module_WENO_Scalar_Short_Zico            \
+			Module_WENO_Scalar_Short                    \
+			Module_WENO_Scalar_Long_JS               \
+			Module_WENO_Scalar_Long_HAP              \
+			Module_WENO_Scalar_Long_Zico             \
+			Module_WENO_Scalar_Long                     \
+			Module_WENO_Scalar_Reconstruction           \
+			Module_WENO_Differentiation                 \
+			Module_WENO_Derivative                      \
+			Module_WENO_Scalar_Flux                     \
+	                                                            \
+			Module_WENO_Euler_Compact_JS            \
+			Module_WENO_Euler_Compact_HAP           \
+			Module_WENO_Euler_Compact_Zico          \
+			Module_WENO_Euler_Compact                   \
+			Module_WENO_Euler_Compact_JS            \
+			Module_WENO_Euler_Compact_HAP           \
+			Module_WENO_Euler_Compact_Zico          \
+			Module_WENO_Euler_Compact                   \
+			Module_WENO_Euler_Short_JS              \
+			Module_WENO_Euler_Short_HAP             \
+			Module_WENO_Euler_Short_Zico            \
+			Module_WENO_Euler_Short                     \
+			Module_WENO_Euler_Long_JS               \
+			Module_WENO_Euler_Long_HAP              \
+			Module_WENO_Euler_Long_Zico             \
+			Module_WENO_Euler_Long                      \
+			Module_WENO_Euler_Reconstruction            \
+			Module_WENO_Euler                           \
+			Module_WENO_Euler_Flux_123D                 \
+			Module_WENO_Euler_Flux_General              \
+	                                                            \
+			Module_WENO_Boundary_Condition              \
+			Module_Boundary_Condition_Parameter         \
+	                                                            \
+	  		Module_PseudoPack_WENO              
+#------------------------------------------------------------------------
+Central_Method    = 	Module_Central_Difference_Setup             \
+			Module_Central_Difference_Coefficient       \
+			Module_Central_Difference_Function          \
+			Module_Central_Difference_Operators         \
+			Module_Central_Differentiation              \
+			Module_Central_Derivative                   \
+			Module_Central_Smoothing                    \
+	                                                            \
+			Module_Central_Euler_Flux                   \
+	                                                            \
+			Module_PseudoPack_Central           
+#------------------------------------------------------------------------
+Hybrid_Method     = 	Module_Hybrid_WENO_Euler_Flux               \
+	                                                            \
+	  		Module_PseudoPack_Hybrid            
+#------------------------------------------------------------------------
+Time_Step_Scheme  =	Module_Runge_Kutta_FS4_4                    \
+			Module_Runge_Kutta_LS4_3                    \
+			Module_Runge_Kutta_LS5_4                    \
+			Module_Runge_Kutta_TVD_3                    \
+	                                                            \
+			Module_PseudoPack_Runge_Kutta       
+#------------------------------------------------------------------------
+Physics           = 	Module_Units_And_Constants                  \
+			Module_Chemical_Property                    \
+			Module_Specific_Heat_Gamma                  \
+	                                                            \
+			Module_PseudoPack_Physics
+#------------------------------------------------------------------------
+Shock             = 	Module_Riemann_Solver                       \
+			Module_Shock_Specification                  \
+			Module_Shock_Profile                        \
+	                                                            \
+			Module_PseudoPack_Shock
+#------------------------------------------------------------------------
+File_Operation    = 	Module_Read_Write_Restart                   \
+	                                                            \
+			Module_PseudoPack_File_Operation
+#------------------------------------------------------------------------
+Graphics          =	Module_Graphic_Parameter                    \
+			Module_General_Graphics                     \
+			Module_Euler_Graphics                       \
+	                                                            \
+			Module_PseudoPack_Graphics
+#==============================================================================
+
+LIBSC = $(PS_Initialization)                  \
+	$(Memory)                             \
+	$(Utility)                            \
+        $(Physics)                            \
+	$(FFT)                                \
+	$(Algorithm)                          \
+        $(Spectral_Method)                    \
+	$(Interpolation)                      \
+	$(MPI_Application)                    \
+	$(Multi_Resolution)                   \
+	$(Euler)                              \
+	$(WENO_Method)                        \
+	$(Central_Method)                     \
+	$(Hybrid_Method)                      \
+	$(Time_Step_Scheme)                   \
+	$(Shock)                              \
+	$(File_Operation)                     \
+	$(Graphics)                           \
+	Module_PseudoPack

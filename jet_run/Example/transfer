@@ -1,0 +1,3 @@
+cp -rp ../Jet_3D_Hybrid/Executable/jet_*_Parall* Executable/.
+cp -rp ../Jet_3D_Hybrid/Executable/jet_*_Serial  Executable/.
+

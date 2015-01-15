@@ -1,0 +1,103 @@
+#------------------------------------SDSU------------------------
+ifeq ($(strip $(SITE_ID)),SDSU)
+  COMPILER_VERSION = 80
+  COMPILER_PATH    = /opt/intel/Compiler/11.0/083
+  COMPILER_EXE     = $(COMPILER_PATH)/bin/intel64
+  COMPILER_LIB     = 
+  COMPILER_LIB     = 
+  COMPILER_ALT     = -fc=ifort
+endif
+
+#------------------------------------Brown_CASCV------------------------
+ifeq ($(strip $(SITE_ID)),Brown_CASCV)
+  COMPILER_VERSION = 80
+  COMPILER_PATH    = /opt/intel/compiler80
+  COMPILER_EXE     =      $(COMPILER_PATH)/bin
+  COMPILER_LIB     = /opt/intel/compiler80/mkl/lib/em64t
+  COMPILER_LIB     = 
+# COMPILER_ALT     = -f90=$(COMPILER_PATH)
+endif
+
+
+#------------------------------------LLNL-------------------------------
+ifeq ($(strip $(SITE_ID)),LLNL)
+  COMPILER_VERSION = 10
+
+  COMPILER_PATH    = /usr/local/intel/compiler100_025
+  COMPILER_EXE     =      $(COMPILER_PATH)/bin/intel64
+  COMPILER_LIB     =      /usr/local/intel/mkl100/lib/64
+# COMPILER_ALT     = -f90=$(COMPILER_PATH)/bin/intel64/ifort
+endif
+
+#------------------------------------IMPA-------------------------------
+ifeq ($(strip $(SITE_ID)),IMPA)
+  COMPILER_VERSION = 90
+
+  COMPILER_PATH    = /opt/intel/fc/9.0/bin/
+  COMPILER_EXE     =      $(COMPILER_PATH)/bin/intel64
+  COMPILER_LIB     =      $(COMPILER_PATH)/mkl/lib/em64t
+# COMPILER_ALT     = -f90=$(COMPILER_PATH)/bin/intel/64/ifort
+endif
+
+#------------------------------------HKBU_HPPC-------------------------------
+ifeq ($(strip $(SITE_ID)),HKBU_HPPC)
+  COMPILER_VERSION = 11
+
+  COMPILER_PATH    = /u1/local/ifc11
+  COMPILER_EXE     =      $(COMPILER_PATH)/bin/intel64
+  COMPILER_LIB     =      $(COMPILER_PATH)/mkl/lib/em64t
+  COMPILER_ALT     = -f90=$(COMPILER_PATH)/bin/intel64/ifort
+endif
+
+#------------------------------------HKBU------------------------------------
+ifeq ($(strip $(SITE_ID)),HKBU)
+  COMPILER_VERSION = 11
+
+  COMPILER_PATH    = /opt/intel/Compiler/11.0/074
+  COMPILER_EXE     =      $(COMPILER_PATH)/bin/intel64
+  COMPILER_LIB     =      $(COMPILER_PATH)/mkl/lib/em64t
+# COMPILER_ALT     = -f90=$(COMPILER_PATH)/bin/intel64/ifort
+endif
+
+#-===================COMPILER========================================
+#
+
+ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+ C_COMPILER       = mpicc
+ F_COMPILER       = mpif90 $(COMPILER_ALT)
+else
+ C_COMPILER       = $(COMPILER_EXE)/icc
+ F_COMPILER       = $(COMPILER_EXE)/ifort
+endif
+
+#-===================LIBRARY=========================================
+#
+   L_LIB        =
+   L_PATH       = -Wl,-rpath=$(COMPILER_LIB)
+ LIB_PATH       = -L$(COMPILER_LIB)
+
+ LINEAR_SOLVER  = -lmkl_solver
+ LAPACK         = -lmkl_lapack
+ MATH           = -lmkl -lguide -lpthread -lm
+
+ MATH_LIB       = $(L_PATH) $(LIB_PATH) $(LINEAR_SOLVER) $(LAPACK) $(MATH)
+
+ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+ SCALAPACK      = -lmkl_scalapack
+ BLACS          = -lmkl_blacs_lp64
+
+ MATH_LIB      += $(SCALAPACK) $(BLACS)
+endif
+
+#-===================================================================
+#
+ CC              = $(C_COMPILER)
+ C_COMPILER_FLAG =
+
+ FF              = $(F_COMPILER)
+ F_COMPILER_FLAG =
+
+ LD              = $(FF)
+ LOADER_FLAG     =
+
+ LIB             = $(MATH_LIB)

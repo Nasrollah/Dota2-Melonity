@@ -1,0 +1,63 @@
+ifeq ($(strip $(SITE_ID)),IMPA)
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+  COMPILER_PATH = 
+# COMPILER_ALT  = -f90=/opt/intel/compiler80/bin/ifort/
+
+  C_COMPILER    = $(COMPILER_PATH)mpiCC
+  F_COMPILER    = $(COMPILER_PATH)mpif90 $(COMPILER_ALT)
+
+  L_PATH        = -L /opt/local/petsc-2.3.1-p12/externalpackages/blacs-dev/linux86-64 
+  L_LIB         = -lblacs 
+
+# L_LIB         = /opt/local/pgi/linux86-64/6.1/lib/blacs_MPI-LINUX-0.a
+ else
+  COMPILER_PATH = 
+
+  C_COMPILER    = $(COMPILER_PATH)pgCC
+  F_COMPILER    = $(COMPILER_PATH)pgf95
+
+  L_PATH        = 
+  L_LIB         = 
+ endif
+
+  L_LIB        += -lacml -llapack -lblas 
+endif
+
+#--------------------------------------------------------------------
+ifeq ($(strip $(SITE_ID)),LLNL)
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+  COMPILER_PATH    = /usr/local/tools/pgi7.07/linux86-64/7.0-7/bin/
+  COMPILER_VERSION = 707
+
+  C_COMPILER    = mpipgcc
+# F_COMPILER    = mpipgf90 -cc=$(COMPILER_PATH)pgf95
+  F_COMPILER    = mpipgf90 
+
+  L_PATH        = 
+  L_LIB         = 
+ else
+  COMPILER_PATH    = /usr/local/tools/pgi7.07/linux86-64/7.0-7/bin/
+  COMPILER_VERSION = 707
+
+  C_COMPILER    = $(COMPILER_PATH)pgCC
+  F_COMPILER    = $(COMPILER_PATH)pgf95
+
+  L_PATH        = 
+  L_LIB         = 
+ endif
+
+  L_LIB        += -lacml -llapack -lblas 
+endif
+
+#--------------------------------------------------------------------
+
+ CC              = $(C_COMPILER)
+ C_COMPILER_FLAG = 
+
+ FF              = $(F_COMPILER)
+ F_COMPILER_FLAG = 
+
+ LD              = $(FF)
+ LOADER_FLAG     = 
+
+ LIB             = $(L_PATH) $(L_LIB)

@@ -1,0 +1,21 @@
+              <---  Pure Shock        -->
+-----------------------------------------------------------------------------
+
+0   1       Restart Step'  Restart Step (0-Clean Start else From Step Number)
+
+0             Begin_Time'  Begin Time     (second)
+1d-5          Final_Time'  Final Time     (second)
+1.0          Time_Factor'  Time Factor    (second)
+0.45 0.95            CFL'  CFL condition for the Euler and NS parts
+-----------------------------------------------------------------------------
+              <---  Pure Shock Specification      -->
+
+0.0             Mach      '  Mach Number
+1.4             Gamma     '
+
+1.1877          Density   ' Uniform Density   kg/kmol
+1.0d5           Pressure  ' Uniform Pressure  N/m^2
+-----------------------------------------------------------------------------
+              <---  Graphic Output Title  --->
+
+'3D Injector DNS'

@@ -1,0 +1,26 @@
+#! /bin/bash
+
+if [ -n "$1" ]
+then
+  X=$1
+else
+  X=1
+fi
+
+rm -f Data_List
+rm -f Flow_List
+
+for file in `ls *.plt`
+
+do
+
+echo "mv $file Flow_$X.plt" >> Data_List
+echo "mv Flow_$X.plt $file" >> Flow_List
+
+let X=X+1
+
+done
+
+chmod 700 Data_List
+chmod 700 Flow_List
+

@@ -1,0 +1,53 @@
+#=========================================================================
+#               ---- Compiler Optimization Flag ----
+
+     General_Flag  = -Mfree -Mextend -mcmodel=medium -tp=amd64 
+     General_Flag += -r8 -i8 -Munixlogical -Mr8intrinsics
+#    General_Flag += -V -show 
+
+ Optimization_Flag  = -O2 -Munroll -Mvect=sse -Mscalarsse  -Mcache_align 
+ Optimization_Flag += -Mconcur
+#Optimization_Flag  =  -fast    #    -fastsse 
+   
+
+     OPEN_MP_Flag  = -mp=align 
+
+    Parallel_Flag  = -Mcache_align -Mconcur -Mdepchk
+
+         MPI_Flag  = -Mmpi
+
+         CPP_Flag  = -Mcpp=mmd -F
+
+     Library_Flag  = -Mscalapack 
+
+ifeq ($(WARNING),on)
+        Info_Flag  = -Minfo -Minform=warn
+endif
+
+ifeq ($(strip $(DEBUG)),on)
+  Optimization_Flag  = 
+         Debug_Flag  = -g -C -Mchkfpstk -Mchkptr -Mchkstk -Mdclchk
+#        Debug_Flag += -Mstandard
+endif
+
+ifeq ($(strip $(PROFILE)),on)
+       Profile_Flag  = -Mpfi -Mpfo -Mprof
+endif
+
+#=========================================================================
+#               ---- CPP ----
+
+CPP                 = -D
+Debug_Line          = -DD
+
+#=========================================================================
+#               ---- Loader ----
+
+Loader_Phase        = -Wl,
+
+#=========================================================================
+#               ---- Compiler_Option ----
+
+F_COMPILER_FLAG  = $(General_Flag) 
+F_COMPILER_FLAG += $(Optimization_Flag) $(Debug_Flag) $(Library_Flag)
+    LOADER_FLAG  = 

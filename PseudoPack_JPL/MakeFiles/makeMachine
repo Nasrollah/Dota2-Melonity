@@ -1,0 +1,180 @@
+#                                  MACHINE 
+#=====================================================================================
+#
+# ID      SITE    TYPE           NAME            PROCESSOR       OS          COMPILER
+# ----    -----   -----          -----------     ---------       -------     --------
+# 1000    Brown   SUN            wsdon-opt       AMD-OPT64       LINUX       PGI
+# 1001    Brown   COMPAQ         helios2         Alpha_64        TRU64       COMPAQ
+# 1002    Brown   SUN            phobos          Sparc           SOLARIS     SUN
+# 1003    Brown   SUN            wsdon-opt       AMD-OPT64       LINUX       GFORTRAN
+
+# 1100    Brown   IBM_SP         babe            PowerPC         AIX         XLF95
+# 1101    Brown   LINUX_CLUSTER  dizzy           INTEL           LINUX       INTEL
+#
+# 2000    LLNL    IBM_SP         up              PowerPC         AIX         XLF95
+# 2001    LLNL    LINUX_CLUSTER  zeus            AMD-OPT64       LINUX       ifort
+# 2002    LLNL    LINUX_CLUSTER  zeus            AMD-OPT64       LINUX       pgf95
+# 2003    LLNL    LINUX_CLUSTER  thunder         Intel Itanium   LINUX       ifort
+#
+# 3000    IMPA    LINUX_CLUSTER  tempest         INTEL           LINUX       PGI
+# 3001    IMPA    LINUX_CLUSTER  tempest         INTEL           LINUX       INTEL 
+#
+# 4000    HKBU    LINUX_CLUSTER  wsdon           INTEL           LINUX       INTEL
+#
+# 5001    SDSU    SGI_CLUSTER    nebula          ITANIUM         LINUX       INTEL 
+# 5002    SDSU    LINUX_CLUSTER  blackbox        INTEL           LINUX       INTEL 
+
+# 6001    JPL     LINUX_CLUSTER  pfe21           INTEL           LINUX       INTEL 
+#
+#=====================================================================================
+
+ SITE_ID           = Brown_DAM_SCG
+ MACHINE_TYPE      = SUN
+ MACHINE_NAME      = wsdon-opt
+ MACHINE_PROCESSOR = AMD_OPT64
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = PGI
+
+ifeq ($(MACHINE_ID),1000)
+ SITE_ID           = Brown_DAM_SCG
+ MACHINE_TYPE      = SUN
+ MACHINE_NAME      = wsdon-opt
+ MACHINE_PROCESSOR = AMD_OPT64
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = PGI
+endif
+
+ifeq ($(MACHINE_ID),1001)
+ SITE_ID           = Brown_DAM_SCG
+ MACHINE_TYPE      = COMPAQ
+ MACHINE_NAME      = helios
+ MACHINE_PROCESSOR = Alpha_64
+ MACHINE_OS        = TRU64
+ MACHINE_COMPILER  = COMPAQ
+endif
+
+ifeq ($(MACHINE_ID),1002)
+ SITE_ID           = Brown_DAM_SCG
+ MACHINE_TYPE      = SUN
+ MACHINE_NAME      = phobos
+ MACHINE_PROCESSOR = Sparc
+ MACHINE_OS        = SOLARIS
+ MACHINE_COMPILER  = SUN
+endif
+
+ifeq ($(MACHINE_ID),1003)
+ SITE_ID           = Brown_DAM_SCG
+ MACHINE_TYPE      = SUN
+ MACHINE_NAME      = wsdon-opt
+ MACHINE_PROCESSOR = AMD_OPT64
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = GFORTRAN
+endif
+
+ifeq ($(MACHINE_ID),1100)
+ SITE_ID           = Brown_CASCV
+ MACHINE_TYPE      = IBM_SP
+ MACHINE_NAME      = babe
+ MACHINE_PROCESSOR = PowerPC
+ MACHINE_OS        = AIX
+ MACHINE_COMPILER  = XLF95
+endif
+
+ifeq ($(MACHINE_ID),1101)
+ SITE_ID           = Brown_CASCV
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = dizzy
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+
+ifeq ($(MACHINE_ID),2000)
+ SITE_ID           = LLNL
+ MACHINE_TYPE      = IBM_SP
+ MACHINE_NAME      = up
+ MACHINE_PROCESSOR = PowerPC
+ MACHINE_OS        = AIX
+ MACHINE_COMPILER  = XLF95
+endif
+
+ifeq ($(MACHINE_ID),2001)
+ SITE_ID           = LLNL
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = zeus
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+
+ifeq ($(MACHINE_ID),2002)
+ SITE_ID           = LLNL
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = zeus
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = PGI
+endif
+
+ifeq ($(MACHINE_ID),2003)
+ SITE_ID           = LLNL
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = thunder
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+
+ifeq ($(MACHINE_ID),3000)
+ SITE_ID           = IMPA
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = tempest
+ MACHINE_PROCESSOR = AMD_OPT64
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = PGI
+endif
+
+ifeq ($(MACHINE_ID),3001)
+ SITE_ID           = SDSU
+ MACHINE_TYPE      = SGI_CLUSTER
+ MACHINE_NAME      = nebula
+ MACHINE_PROCESSOR = AMD_OPT64
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+
+ifeq ($(MACHINE_ID),4000)
+ SITE_ID           = HKBU
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = wsdon
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+
+ifeq ($(MACHINE_ID),5001)
+ SITE_ID           = SDSU
+ MACHINE_TYPE      = SGI_CLUSTER
+ MACHINE_NAME      = nebula
+ MACHINE_PROCESSOR = ITANIUM
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+
+ifeq ($(MACHINE_ID),5002)
+ SITE_ID           = SDSU
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = blackbox
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+
+ifeq ($(MACHINE_ID),6001)
+ SITE_ID           = JPL
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = pfe21
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif

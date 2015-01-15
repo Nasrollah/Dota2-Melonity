@@ -1,0 +1,62 @@
+#=========================================================================
+#               ---- Compiler Optimization Flag ----
+
+     General_Flag  = -Mfree 
+     General_Flag += -r8 
+     General_Flag += -i4
+#    General_Flag += -i8 -i8storage    # Remove if used ScalaPack subroutine
+     General_Flag += -Munixlogical -Mr8intrinsics
+     General_Flag += -Mlarge_arrays
+#    General_Flag += -mcmodel=medium 
+#    General_Flag += -tp=amd64 
+#    General_Flag += -V -show 
+
+#Optimization_Flag  =  -fastsse   #    -fastsse  -fast
+ Optimization_Flag  = -O$(OPTIMIZATION_LEVEL)
+ Optimization_Flag += -Munroll -Mcache_align 
+ Optimization_Flag += -Mvect=sse -Mscalarsse 
+#Optimization_Flag += -Mconcur
+
+     OPEN_MP_Flag  = -mp=align 
+
+    Parallel_Flag  = -Mcache_align -Mconcur -Mdepchk
+
+         CPP_Flag  = -Mcpp=mmd 
+
+ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+         MPI_Flag  = -Mmpi
+     Library_Flag  = -Mscalapack 
+endif
+
+        Info_Flag  = -Minfo -Minform=warn
+
+ifeq ($(strip $(DEBUG)),on)
+  Optimization_Flag  = 
+endif
+         Debug_Flag  = -g -C -Mchkfpstk -Mchkptr -Mchkstk -Mdclchk
+#        Debug_Flag += -Mstandard
+
+       Profile_Flag  = -Mpfi -Mpfo -Mprof
+
+         MOD_OPTION  = -module
+
+#=========================================================================
+#               ---- CPP ----
+
+CPP                 = -D
+CPP_ONLY            = -F
+Debug_Line          = -DD
+
+#=========================================================================
+#               ---- Loader ----
+
+Loader_Phase        = -Wl,
+
+#=========================================================================
+#               ---- Compiler_Option ----
+
+ F_COMPILER_FLAG  = $(General_Flag) 
+ F_COMPILER_FLAG += $(Optimization_Flag) 
+ F_COMPILER_FLAG += $(Library_Flag) 
+#F_COMPILER_FLAG += $(MPI_Flag) 
+     LOADER_FLAG  = 

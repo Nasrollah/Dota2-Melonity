@@ -1,0 +1,143 @@
+-----------------------------------------------------------------------------
+              <---  Physical Parameters -->
+
+1        Fluid System ?  0-Euler, 1-Navier-Stokes
+
+-100           Case_Study' 0-Pure Shock 1-RM  2-RT  3-SB  -100 Uniform flow
+-----------------------------------------------------------------------------
+        <---  Read data in the FIRST  dimension --->
+
+1            Index'  1 (First Index), 2 (Second Index), 3 (Third Index)
+1           Method'  0 (Periodic), 1 (else)
+0         Symmetry'  0 (No), 1 (Yes)
+
+              <---  Grid Size and BlockSize  --->
+
+361             N '  Total number of points to be worked on (Odd number)
+
+              <---  Grid Setup  --->
+
+-0.0525d0       Left'  Left  Physical Domain in x   (m)
+ 0.0525d0      Right'  Right Physical Domain in x   (m)
+-----------------------------------------------------------------------------
+              <---  Read data in the SECOND dimension --->
+
+2            Index'  1 (First Index), 2 (Second Index), 3 (Third Index)
+1           Method'  0 (Periodic), 1 (else)
+0         Symmetry'  0 (No), 1 (Yes)
+
+              <---  Grid Size and BlockSize  --->
+
+361             M '  Total number of points to be worked on (Odd number)
+
+              <---  Grid Setup  --->
+
+-0.0525d0     Bottom'  Bottom Physical Domain in y  (m)
+ 0.0525d0        Top'  Top    Physical Domain in y  (m)
+-----------------------------------------------------------------------------
+              <---  Read data in the THIRD  dimension --->
+
+3            Index'  1 (First Index), 2 (Second Index), 3 (Third Index)
+1           Method'  0 (Periodic), 1 (else)
+0         Symmetry'  0 (No), 1 (Yes)
+
+              <---  Grid Size and BlockSize  --->
+
+961              K '  Total number of points to be worked on (Odd number)
+
+              <---  Grid Setup  --->
+
+ 0            Down'  Down   Physical Domain in z  (m)
+0.28d0          Up'  Up     Physical Domain in z  (m)
+-----------------------------------------------------------------------------
+              <---  WENO Parameters     -->
+
+5  (9               Order ' (1,3,5,7,9,11)
+2             Weight Type ' 0-JS, 1-HAP, 2-Zico
+2                   Power '
+1.0d-12           Epsilon '
+1.0         Lambda_Factor '
+1.0d-16   Sound_Speed_Min '
+2             Unroll_Loop ' Level of Unroll Loop (0-Compact,1-Short,2-Most)
+-----------------------------------------------------------------------------
+        <---  Read data in the FIRST  dimension --->
+
+6     Order            '  Central Differencing order (EVEN number)
+
+0      Filter Choice    ' 0-None, 1-Standard, 2-Optimized
+6             Order     '  Central Smoothing    order (EVEN number)
+0.0d-1    Viscosity '    0 < vis < 1
+-----------------------------------------------------------------------------
+              <---  Read data in the SECOND dimension --->
+
+6      Order            '  Central Differencing order (EVEN number)
+
+0      Filter Choice    ' 0-None, 1-Standard, 2-Optimized
+6             Order     '  Central Smoothing    order (EVEN number)
+0.0d-1        Viscosity '
+-----------------------------------------------------------------------------
+              <---  Read data in the THIRD  dimension --->
+
+6      Order            '  Central Differencing order (EVEN number)
+
+0      Filter Choice    ' 0-None, 1-Standard, 2-Optimized
+6             Order     '  Central Smoothing    order (EVEN number)
+0.0d-1        Viscosity '
+-----------------------------------------------------------------------------
+              <---  Navier Stokes Flux --->
+
+T  1.088d-4 Viscous Dissipation ? T/F ,    mu_0 (m^2/s)  
+6 6 6    Order in x/y/z  '  Central Differencing order (EVEN number)
+
+T  0.1539d0    Thermal Conduction ? T/F , kappa_0 (W/mK)
+6 6 6    Order in x/y/z  '  Central Differencing order (EVEN number)
+
+F  0.0d0   Molecular Diffusion ? T/F ,  zeta_0
+6 6 6    Order in x/y/z  '  Central Differencing order (EVEN number)
+-----------------------------------------------------------------------------
+              <---  Processor Topology --->
+
+T  F  0  Distributed_x (logical), Periodicity_x, Grid_x
+T  F  0  Distributed_y (logical), Periodicity_y, Grid_y
+T  F  0  Distributed_z (logical), Periodicity_z, Grid_z
+-----------------------------------------------------------------------------
+              <---  Boundary Conditions --->
+
+                  ON/OFF     Symmetry          BC Type (See Notes Below)
+1   0   -1 -1    x: BC_On_Off, BC_Symmetry,    (Left  , Right)
+1   0   -1 -1    y: BC_On_Off, BC_Symmetry,    (Bottom, Top  )
+1   0   0 -1    z: BC_On_Off, BC_Symmetry,    (Down  , Up   )
+-----------------------------------------------------------------------------
+              <---  Roundoff error control -->
+
+1.0d-14 -1      Roundoff control of dF/dx (0,1,2,3)
+1.0d-14 1 1     Roundoff control of Mass Fraction
+-----------------------------------------------------------------------------
+              <---  Domain Truncation Data -->
+
+F               Master Switch
+T                 Echo Truncated Domain Limit
+1.0d-12           Lower Limit
+2                 Variable Index 1=Rho, 2=RhoU, 3=RhoV, 4=E (for 2D)
+5                 Buffer Factor (*N_Ghost_Cell)
+
+===========================================================================
+Note :
+
+------------------------------------
+Graphics Output :
+
+  N_Frame > 0   No intermediate Restart file 
+          < 0   Output intermeidate Restart file at the same time output plot
+
+------------------------------------
+Boundary condition :
+
+For Non-Periodical domain :
+
+  BC_Type  -1   Outflow at the respectively domain boundaries
+            0   No Boundary condition set
+            1   FreeStream Condition at the respective domain boundaries
+                  (DEFAULT)
+
+  If (BC_Symmetry == 1) BC_Type will be ignored in a given coordinate.

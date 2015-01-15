@@ -1,0 +1,106 @@
+#=========================================================================
+#               ---- ESSL Library ----
+
+ESSL_LIBRARY = 
+ESSL_OPTION  = 
+
+ifeq ($(strip $(USE_ESSL_LIBRARY)),on)
+ ESSL_LIBRARY = -lesslsmp -lpesslsmp -lblacssmp 
+#ESSL_LIBRARY = -lessl -lpesslp2 -lblacsp2
+
+ ifeq ($(strip $(ESSL_OPTIMIZATION)),on)
+  ESSL_OPTION  = -qessl
+ endif
+endif
+
+LIBRARY  = $(ESSL_LIBRARY) 
+
+#=========================================================================
+#               ---- Math Library ----
+
+MATH_LIBRARY = 
+
+#=========================================================================
+# Compiler Option 
+
+ ADD_OPTION  = $(FreeForm) $(PreProcessor) $(Implicit_None)
+ ADD_OPTION += $(Optimization) $(MATH_LIBRARY)
+ ADD_OPTION += $(ESSL_OPTION) 
+
+ifeq ($(strip $(MACHINE_TYPE)),SUN)
+  ifeq ($(strip $(MACHINE_COMPILER)),PGI)
+   SRCPATH += -module $(PS_MODDIR)
+  else
+   SRCPATH += -M $(PS_MODDIR)
+  endif
+endif
+
+ifeq ($(strip $(MACHINE_TYPE)),COMPAQ)
+ SRCPATH += -module $(PS_MODDIR)
+
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+  ADD_OPTION += -hpf -hpf_target gmpi -show hpf_near -show hpf_punt
+  LIBRARY += -ldxmlp
+ endif
+
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),OpenMP)
+  ADD_OPTION += -omp -check_omp
+# ADD_OPTION += -threads
+
+  LIBRARY += -ldxmlp
+ endif
+
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Serial)
+  LIBRARY += -ldxml
+ endif
+endif
+
+ifeq ($(strip $(MACHINE_TYPE)),INTEL)
+#ADD_OPTION += $(Auto_Init)
+
+# ADD_OPTION += -parallel
+
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+# ADD_OPTION += -par_report 3 -par_threshold 16
+ endif
+
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),OpenMP)
+  ADD_OPTION += -openmp
+# ADD_OPTION += -openmp_profile -openmp_stubs -openmp_report 2
+ endif
+endif
+
+ifeq ($(strip $(MACHINE_TYPE)),IBM_SP)
+ ADD_OPTION += $(Stack_Allocation) $(Large_Pages)
+ ADD_OPTION += $(Pointer_Init) $(Auto_Init)
+ ADD_OPTION += -qtune=auto -qarch=auto -qcache=AUTO 
+ ADD_OPTION += -qmoddir=$(PS_MODDIR)
+endif
+
+ifeq ($(strip $(PROFILE)),on)
+ ADD_OPTION += $(G_Profiling)
+endif
+
+ifeq ($(strip $(DEBUG)),on)
+ ADD_OPTION += $(Debug) $(Listing) $(Bound_Check) 
+#ADD_OPTION += $(Debug) $(Listing) 
+
+ ifeq ($(strip $(MACHINE_TYPE)),IBM_SP)
+  ADD_OPTION += $(Loadmap) $(Attribute) $(Cross_Reference)
+ endif
+else
+ ifeq ($(strip $(MACHINE_TYPE)),IBM_SP)
+  ifeq ($(strip $(OPTIMIZATION_LEVEL)),3) 
+   ADD_OPTION += $(Strict)
+  endif
+ endif
+endif
+
+ifeq ($(strip $(WARNING)),on)
+ ADD_OPTION += $(Warning) $(Message_Level) 
+endif
+
+ifeq ($(strip $(MACHINE_COMPILER)),PGI)
+  ADD_OPTION += -mcmodel=medium 
+  ADD_OPTION += -Mchkfpstk -Mchkptr -Mchkstk
+endif

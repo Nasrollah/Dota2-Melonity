@@ -1,0 +1,45 @@
+ifeq ($(strip $(SITE_ID)),CASCV)
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+  COMPILER_PATH = /opt/mpich/myrinet/intel/
+
+  C_COMPILER    = $(COMPILER_PATH)bin/mpiCC
+  F_COMPILER    = $(COMPILER_PATH)bin/mpif90
+ else
+  COMPILER_PATH = /opt/intel/compiler70/ia32/
+
+  C_COMPILER    = $(COMPILER_PATH)bin/icc
+  F_COMPILER    = $(COMPILER_PATH)bin/ifc
+ endif
+endif
+
+ifeq ($(strip $(SITE_ID)),LLNL)
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+  COMPILER_PATH = /usr/local/intel/compiler80/ia32/
+
+  C_COMPILER    = $(COMPILER_PATH)bin/mpiCC
+  F_COMPILER    = $(COMPILER_PATH)bin/mpifc
+ else
+  COMPILER_PATH = /usr/local/intel/compiler80/ia32/
+
+  C_COMPILER    = $(COMPILER_PATH)bin/icc
+  F_COMPILER    = $(COMPILER_PATH)bin/ifc
+ endif
+endif
+
+ LIB_PATH    = -L$(COMPILER_PATH)lib -L/usr/lib/mpi/lib
+ LIB         = /usr/lib/mpi/lib/pgf90_farg.o -lF90 -lCEPCF90 -lPEPCF90
+ LIB        += -lmpi -lelan -lelan3 -lrmscall
+
+#-----------------------------------------------------------
+#
+ CC             = $(C_COMPILER)
+ C_COMPILEFLAGS = 
+
+ FF             = $(F_COMPILER)
+ F_COMPILEFLAGS = 
+
+ LD             = $(FF)
+ LOADERFLAGS    = 
+
+ LIBLOC         = $(LIB_PATH)
+ LIBS           = $(LIB)

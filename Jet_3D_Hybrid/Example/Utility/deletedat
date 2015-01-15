@@ -1,0 +1,6 @@
+#! /bin/csh
+
+foreach file ( *.plt )
+   set base=`basename $file .plt`
+   rm -f Data/$base.dat 
+end

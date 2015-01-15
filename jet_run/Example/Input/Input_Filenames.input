@@ -1,0 +1,96 @@
+=============================================================================
+
+                      INPUT FILES NAME AND DIRECTORY
+
+!------------------------------------------------------------------------
+
+Input                                              ROOT DIRECTORY
+Injector                                             CASE DIRECTORY
+
+!------------------------------------------------------------------------
+                             WENO Main
+' '                                                Directory
+WENO.input                                           Filename
+!------------------------------------------------------------------------
+                             Output Control  
+' '                                                Directory
+Output.input                                         Filename
+
+--------------------------------------
+                 INITIAL SETUP
+!------------------------------------------------------------------------
+                             Shock 
+' '                                                Directory
+Shock.input                                          Filename
+!------------------------------------------------------------------------
+                             Rayleigh_Taylor 
+' '                                                Directory
+Rayleigh_Taylor.input                                Filename
+!------------------------------------------------------------------------
+                             Richtmyer Meshkov
+' '                                                Directory
+Richtmyer_Meshkov.input                              Filename
+!------------------------------------------------------------------------
+                             Shock Particle   
+' '                                                Directory
+Particle.input                                     Filename
+!------------------------------------------------------------------------
+                             Scalar Advection
+' '                                                Directory
+Scalar_Advection.input                               Filename
+!------------------------------------------------------------------------
+                             Uniform Flow
+' '                                                Directory
+Uniform_Flow.input                                   Filename
+!------------------------------------------------------------------------
+                            Injector Flow
+' '                                                Directory
+Injector.input                                       Filename
+!------------------------------------------------------------------------
+
+--------------------------------------
+                 INTERFACES TYPE
+!------------------------------------------------------------------------
+                             Membrance 
+' '                                                Directory
+Membrance.input                                      Filename
+!------------------------------------------------------------------------
+                             Notch Distribution 
+' '                                                Directory
+Notch_Distribution_2D.input                          Filename
+Notch_Distribution_3D.input                          Filename
+!------------------------------------------------------------------------
+                             Mode Distribution 
+' '                                                Directory
+Mode_Distribution_2D.input                           Filename
+Mode_Distribution_3D.input                           Filename
+!------------------------------------------------------------------------
+                             Random Perturbation Bubbles   
+' '                                                Directory
+Random_Perturbation.input                            Filename
+!------------------------------------------------------------------------
+                             Shock Bubbles   
+' '                                                Directory
+Shock_Bubbles.input                                  Filename
+!------------------------------------------------------------------------
+                             Multi-Resolution 
+' '                                                Directory
+Multi_Resolution.input                               Filename
+!------------------------------------------------------------------------
+
+--------------------------------------
+                 Mixing Layer 
+!------------------------------------------------------------------------
+                             Analysis
+' '                                                Directory
+Analysis.input                                       Filename
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Archive Data
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+f:\Program\Richtmyer_Meshkov                         ROOT DIRECTORY
+~/HOPE+/05-13-03/                                    ROOT DIRECTORY

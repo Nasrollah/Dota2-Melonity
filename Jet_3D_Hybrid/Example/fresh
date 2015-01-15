@@ -1,0 +1,6 @@
+rm -rf Output/*/*
+rm -rf fort.*
+rm -rf *.core
+rm -rf core*.*
+rm -rf *.log
+rm -rf *.err

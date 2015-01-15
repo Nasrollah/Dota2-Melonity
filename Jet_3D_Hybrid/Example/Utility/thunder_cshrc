@@ -1,0 +1,7 @@
+setenv PATH $PATH':/home/degregor/HOPE_2009b/ETH/Utility/'
+
+alias preplot    "/usr/local/tecplot/bin/preplot"
+alias framer     "/usr/local/tecplot/bin/framer"
+alias tecplot    "tecplot -mesa"
+alias b_tecplot  "tecplot -mesa -b -p "
+

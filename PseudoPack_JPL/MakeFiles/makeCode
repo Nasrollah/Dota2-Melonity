@@ -1,0 +1,49 @@
+#=========================================================================
+#  Code Directories Setup
+
+#CODE_PATH       = Run
+
+Code_EXE        = Executable
+Code_INPUT      = Input
+Code_OUTPUT     = Output
+
+Output_SUBDIR  = Plot Movie Restart 
+Output_SUBDIR += MR_Flag Misc
+Output_SUBDIR += Analysis PDF Profile Statistic
+
+  CODE_PATH := $(CODE_PATH)/
+  Code_DIR   = $(Code_EXE) $(Code_INPUT) $(Code_OUTPUT)
+
+  Code_DIR  := $(Code_DIR:%=$(CODE_PATH)%)
+Output_DIR   = $(CODE_PATH)$(Code_OUTPUT)
+
+code_install:
+	if (test -d $(CODE_PATH)) ; then                     \
+	  $(KILL)    $(CODE_PATH)                          ; \
+	fi
+	echo Installing Code to : $(CODE_PATH)
+	  $(MAKEDIR) $(CODE_PATH)
+	for Sub_0 in $(Code_DIR); do                         \
+	  echo Installing Subdirectory : $$Sub_0          ; \
+	  $(MAKEDIR) $$Sub_0                               ; \
+	done
+	for Sub_1 in $(Output_SUBDIR); do                    \
+	  echo Installing Subdirectory : $(Output_DIR)/$$Sub_1 ; \
+	  $(MAKEDIR) $(Output_DIR)/$$Sub_1                 ; \
+	done
+	echo Copying Executable to : $(CODE_PATH)$(Code_EXE)
+	$(COPY)    Executable/*  $(CODE_PATH)$(Code_EXE)   ; \
+	echo Copying Input      to : $(CODE_PATH)$(Code_INPUT)
+	$(COPY)    Input/*       $(CODE_PATH)$(Code_INPUT) ; \
+
+code_remove:   
+	echo Removing Code Directory : $(CODE_PATH)
+	  $(KILL)    $(CODE_PATH)
+
+code_clean:
+	echo Cleaning Files in Output subdirectory : $(Output_DIR)
+	  $(KILL)    core* fort.*
+	  $(KILL)    $(Output_DIR)                ; \
+	for Sub_1 in $(Output_SUBDIR); do           \
+	  $(MAKEDIR) $(Output_DIR)/$$Sub_1        ; \
+	done

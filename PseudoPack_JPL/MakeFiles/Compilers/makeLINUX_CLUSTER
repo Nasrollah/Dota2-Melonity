@@ -1,0 +1,59 @@
+#=========================================================================
+#               ---- Math Library ----
+
+MATH_LIBRARY =
+
+#=========================================================================
+# Compiler Option
+
+ ADD_OPTION  = $(MATH_LIBRARY)
+
+#-------------------------------------------------------------------------
+ifeq ($(strip $(MACHINE_TYPE)),INTEL)
+#ADD_OPTION += $(Auto_Init)
+
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+  ADD_OPTION += -parallel
+# ADD_OPTION += -par_report 3 -par_threshold 16
+ endif
+
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),OpenMP)
+  ADD_OPTION += -openmp
+# ADD_OPTION += -openmp_profile -openmp_stubs -openmp_report 2
+ endif
+endif
+
+#-------------------------------------------------------------------------
+ifeq ($(strip $(MACHINE_TYPE)),PGI)
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+    Parallel_Flag  = -Mcache_align -Mconcur -Mdepchk
+
+         MPI_Flag  = -Mmpi
+     Library_Flag  = -Mscalapack
+
+  ADD_OPTION += $(Parallel_Flag) $(MPI_Flag) $(Library_Flag)
+ endif
+
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),OpenMP)
+     OPEN_MP_Flag  = -mp=align
+
+  ADD_OPTION += $(OPEN_MP_Flag)
+ endif
+endif
+#-------------------------------------------------------------------------
+
+ifeq ($(strip $(PROFILE)),on)
+ ADD_OPTION += $(Profile_Flag)
+endif
+
+ifeq ($(strip $(DEBUG)),on)
+ ADD_OPTION += $(Debug_Flag)
+endif
+
+ifeq ($(strip $(WARNING)),on)
+ ADD_OPTION += $(Info_Flag)
+endif
+
+#-------------------------------------------------------------------------
+ADD_Option +=
+

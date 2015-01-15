@@ -1,0 +1,15 @@
+-----------------------------------------------------------------------------
+              <---  Multi-Resolution Parameters --->
+
+1              MR_Activation   (0-No, 1-Yes) (Master Switch)
+1  1  1        MR_Activate in (x, y, z) Coordinates   (0-No, 1-Yes)
+
+6              MR_Order        (Order of the MR 
+1              MR_Index        (Which Variable index used for the MR (NOT USED)
+1.0d-3         MR_Tolerance    (MR_Tolerance Level
+1              MR_Jump_Factor  (Factor multiply to the MR_Tolerance
+0  0           MR_i0, MR_i1    (Index Range for WENO < i-MR_i0:i+MR_i1 if Flag(i) == 1 > (NOT USED)
+
+1              MR_Output_Screen (0=N, 1=Y)
+
+0              Hybrid Start Time

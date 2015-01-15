@@ -1,0 +1,66 @@
+#!/bin/csh -f
+####!/bin/bash
+
+### Job name
+#PBS -N eth
+
+### Output files
+#PBS -e eth.err
+#PBS -o eth.log
+
+### Mail to user
+##PBS -m ae
+
+### Declare job non-rerunable
+#PBS -r n
+
+### Queue name (small, medium, long, verylong)
+### Number of nodes (node property ev67 wanted)
+##PBS -l nodes=8:ev67
+
+##PBS -l nodes=16:ppn=1
+##PBS -l walltime=08:00:00
+
+##PBS -l nodes=1:ppn=1
+#PBS -l nodes=10:ppn=7
+#PBS -l walltime=02:00:00
+
+# This job's working directory
+echo Working directory is $PBS_O_WORKDIR
+cd $PBS_O_WORKDIR
+echo
+
+echo Time is `date`
+echo Running on host `hostname`
+echo Directory is `pwd`
+echo
+
+echo This jobs runs on the following processors:
+echo `cat $PBS_NODEFILE`
+echo
+
+# Define number of processors
+set NPROCS=`wc -l < $PBS_NODEFILE`
+sort $PBS_NODEFILE |uniq -c |awk '{ printf("%s:%s\n", $2, $1); }' > mpd.hosts
+set NNODES=`wc -l < mpd.hosts`
+
+set   PROGRAM_NAME=sp_wsdon_3d_Parallel
+
+set      PROJECT_PATH=$PBS_O_WORKDIR
+set   EXECUTABLE_PATH=$PROJECT_PATH/Executable
+set           PROGRAM=$EXECUTABLE_PATH/$PROGRAM_NAME
+
+echo
+echo Executing $PROGRAM on $NPROCS processors in $NNODES nodes ....
+echo
+
+/u1/local/mvapich2/bin/mpdboot -f mpd.hosts -n $NNODES
+/u1/local/mvapich2/bin/mpiexec -n $NPROCS $PROGRAM
+/u1/local/mvapich2/bin/mpdallexit
+
+##mv mpd.hosts a.host
+
+##/u1/local/mvapich2/bin/mpdboot -f nodes -n $NNODES
+##/u1/local/mvapich2/bin/mpiexec -n $NPROCS $PROGRAM
+##/u1/local/mvapich2/bin/mpdallexit
+

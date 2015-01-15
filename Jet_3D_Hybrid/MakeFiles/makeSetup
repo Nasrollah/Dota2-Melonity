@@ -1,0 +1,165 @@
+#=========================================================================
+#  HOPE Directories Setup
+
+HOPE_HOME_DIR = Executable Object Module
+
+HOPE_DIR      = Executable Output Input 
+HOPE_SUBDIR   = Analysis PDF Profile Statistic
+HOPE_SUBDIR  += Plot Movie Restart MR_Flag Misc
+
+makefile_update:
+	cp -rp $(PS_MAIN_PATH)/$(MAKE_DIR)/Compilers $(MAKE_DIR)/.
+	cp -f  $(PS_MAIN_PATH)/$(MAKE_DIR)/makeMachine $(MAKE_DIR)/.
+
+hope_install_subdirectory:
+	for Sub_0 in $(HOPE_HOME_DIR); do \
+	  $(KILL) -r $$Sub_0; \
+	  $(MAKEDIR) $$Sub_0; \
+	done
+
+hope_clean :
+	  $(KILL) -r $(HOPE_PATH)/Output/* ; \
+	for Sub_1 in $(HOPE_SUBDIR); do \
+	  $(MAKEDIR) $(HOPE_PATH)/Output/$$Sub_1; \
+	done
+
+hope_remove:
+	$(KILL) -r $(HOPE_PATH)
+	for Sub_0 in $(HOPE_HOME_DIR); do \
+	  $(KILL) -r $$Sub_0; \
+	  $(MAKEDIR) $$Sub_0; \
+	done
+
+hope_install:
+	if (test ! -d $(HOPE_PATH)) ; then \
+	  (echo ----  Installing HOPE Directories and Copy Input Files --- ; \
+	   echo Directory Name : $(HOPE_PATH)                              ; \
+	   echo                                                            ; \
+	   $(MAKE) hope_install_directory                                ) ; \
+	else  \
+	  (echo ----  Refreshing HOPE Directories and Copy Input Files --- ; \
+	   echo Directory Name : $(HOPE_PATH)                              ; \
+	   echo                                                            ; \
+	   $(MAKE) hope_refresh_directory                                ) ; \
+	fi
+
+hope_install_directory:
+	for Sub_0 in $(HOPE_DIR); do \
+	  $(KILL) -r $(HOPE_PATH)/$$Sub_0; \
+	  $(MAKEDIR) $(HOPE_PATH)/$$Sub_0; \
+	done
+	$(MAKE) hope_clean
+	$(MAKE) hope_refresh_directory
+
+hope_refresh_directory:
+	@echo  ---  Refreshing the Directories : Begin ---
+	$(COPY) Utility/*              $(HOPE_PATH)
+	$(COPY) Input/*                $(HOPE_PATH)/Input
+	$(COPY) $(EXECUTABLE)          $(HOPE_PATH)/Executable
+	chmod 700                      $(HOPE_PATH)/clean
+	chmod 700                      $(HOPE_PATH)/poe
+	@echo  ---  Refreshing the Directories : Done  ---
+
+hope_update_executable:
+	$(MAKE) System_Info
+	$(KILL) -r Object/*.o
+	$(MAKE) $(TARGET)
+	$(MAKE) clean
+	@echo  ---  Updating the Executable    : Begin ---
+	$(COPY) $(EXECUTABLE)     $(HOPE_PATH)/Executable
+	@echo  ---  Updating the Executable    : Done  ---
+	$(MAKE) System_Done
+
+hope_install_makefile:
+	@if (test ! -d MakeFiles); then
+	  ($(COPY) -rp ../MakeFiles/Compilers/$(MACHINE_TYPE)     $(MAKDIR)   ;\
+	   $(COPY) -rp ../MakeFiles/Compilers/HOPE/*              $(MAKDIR)   ;\
+	   $(COPY) -rp ../MakeFiles/Compilers/HOPE/makelibary     .           ;\
+	   $(COPY) -rp ../MakeFiles/Compilers/makeBase            $(MAKDIR)   ;\
+	   $(COPY) -rp ../MakeFiles/Compilers/makeCompiler_Option $(MAKDIR) ) ;\
+	fi
+
+hope_update_makefile:
+	   $(COPY) -rp ../MakeFiles/Compilers/$(MACHINE_TYPE)     $(MAKDIR)   ;\
+	   $(COPY) -rp ../MakeFiles/Compilers/makeBase            $(MAKDIR)   ;\
+	   $(COPY) -rp ../MakeFiles/Compilers/makeCompiler_Option $(MAKDIR) ) ;\
+	  ($(COPY) -rp ../MakeFiles/Compilers/$(MACHINE_TYPE) $(MAKDIR) ); \
+
+
+xSystem_Info:
+	@echo 
+	@echo ----- Compiling $(EXECUTABLE) Program : Begin ---
+	@echo 
+	@echo Site ID  \ \ \ \ \ \ \ \ \  : $(SITE_ID)
+	@echo Machine Type \ \ \ \ \ : $(MACHINE_TYPE)
+	@echo Machine Name \ \ \ \ \ : $(MACHINE_NAME)
+	@echo Machine Processor : $(MACHINE_PROCESSOR)
+	@echo Machine OS      \ \ \ \ \ \  : $(MACHINE_OS)
+	@echo Machine Compiler \ : $(MACHINE_COMPILER)
+	@echo Machine ID      \ \ \ \ \ \  : $(MACHINE_ID)
+	@echo
+	@echo Program Name : $(TARGET)
+	@echo Program Path : $(CURDIR)
+	@echo Library Name : $(PS_LIBRARY)
+	@echo
+	@echo Compiler \ \ \ \ : $(FF)
+	@echo Compile Flag : $(F_COMPILER_FLAG)
+	@echo
+	@echo 
+
+System_Done:
+	@echo 
+	@echo ---- Compiling $(EXECUTABLE) Program : Done  ----
+	@echo 
+
+Directory_check:
+	@if (test ! -d Executable); then                            \
+	  (echo ----- Install Sub_Directories : Begin ----        ; \
+	   $(MAKE) hope_install_subdirectory                      ; \
+	   echo                                                   ; \
+	   echo ----- Install Sub_Directories : Done  ----        ; \
+	   echo                                                 ) ; \
+	fi
+	@if (test ! -d MakeFiles); then                                    \
+	  (echo ----- Update Missing MakeFiles : Begin ----              ; \
+	   $(COPY) -rp ../MakeFiles/Compilers/$(MACHINE_TYPE) $(MAKDIR)  ; \
+	   echo ----- Update Missing MakeFiles : Done  ----            ) ; \
+	fi
+
+System_Info:
+	@echo 
+	@echo ----- Compiling Program : Begin ---
+	@echo 
+	@echo Site ID  \ \ \ \ \ \ \ \ \  : $(SITE_ID)
+	@echo Machine Type \ \ \ \ \ : $(MACHINE_TYPE)
+	@echo Machine Name \ \ \ \ \ : $(MACHINE_NAME)
+	@echo Machine Processor : $(MACHINE_PROCESSOR)
+	@echo Machine OS      \ \ \ \ \ \  : $(MACHINE_OS)
+	@echo Machine Compiler \ : $(MACHINE_COMPILER)
+	@echo Machine ID      \ \ \ \ \ \  : $(MACHINE_ID)
+	@echo
+	@echo Program Path : $(CURDIR)
+	@echo Program Name : $(EXECUTABLE)
+	@echo
+	@echo Compiler \ \ \ \ \ \ \      : $(FF)
+	@echo Compiler Version      : $(COMPILER_VERSION)
+	@echo
+	@echo Compiler Library      : $(LIB) $(LIBRARY) 
+	@echo PseudoPack Library    : $(PS_LIBRARY)
+	@echo
+	@echo Compiler Flag         : $(COMPILER_FLAG)
+	@echo
+	@echo Loader Flag           : $(LOADER_FLAG)
+	@echo
+	@echo Compiler CPP Option   : $(CPP_OPTION)
+	@echo
+	@echo Compiler User Defined : $(USER_DEFIND_OPTION)
+	@echo
+	@echo Compiler Additional   : $(ADD_OPTION)
+	@echo
+	@echo Compiler Module PATH  : $(MOD_PATH)
+	@echo
+	@echo Compiler Source PATH  : $(SRC_PATH)
+	@echo
+	@echo
+	@echo 

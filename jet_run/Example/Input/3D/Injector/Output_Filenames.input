@@ -1,0 +1,50 @@
+=============================================================================
+
+                  DATA OUTPUT FILENAMES AND DIRECTORIES
+
+!------------------------------------------------------------------------
+
+Output                                                      ROOT DIRECTORY
+
+!------------------------------------------------------------------------
+
+jet                                                  File Prefix
+!------------------------------------------------------------------------
+                             Graphic Files
+Plot                                                 Plot Directory
+Movie                                                Movie Directory
+MR_Flag                                              MR Directory
+!------------------------------------------------------------------------
+                            Analysis Files
+Analysis                                             Directory
+Analysis_Data                                        Directory
+Flowfield                                            Directory
+Statistic                                            Directory
+PDF                                                  Directory
+Profile                                              Directory
+Spectrum                                             Directory
+!------------------------------------------------------------------------
+                             Restart Files
+Restart                                              Directory
+Restart_Data                                         Directory
+!------------------------------------------------------------------------
+                            Topology Files
+Topology                                             Directory
+!------------------------------------------------------------------------
+                      Adaptive Domain Files
+Adaptive_Domain                                      Directory
+!------------------------------------------------------------------------
+                             Misc    Files
+Misc                                                 Directory
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Archive Data
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+f:\Program\Richtmyer_Meshkov                         ROOT DIRECTORY
+~/HOPE+/05-13-03/                                    ROOT DIRECTORY

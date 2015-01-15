@@ -1,0 +1,19 @@
+compiler_dir =
+
+COMPILER_DIR = $(compiler_dir)
+
+Make_Base    = $(PS_MAIN_PATH)/$(MAKE_DIR)/makeBase
+Make_Code    = $(PS_MAIN_PATH)/$(MAKE_DIR)/makeCode
+Make_Machine = $(PS_MAIN_PATH)/$(MAKE_DIR)/makeMachine
+Make_Type    = $(PS_MAIN_PATH)/$(MAKE_DIR)/Compilers/make$(MACHINE_TYPE)
+Make_OS      = $(PS_MAIN_PATH)/$(MAKE_PATH)/*
+
+compiler_install:
+	$(COPY) $(MAKE_DIR)/make*     $(COMPILER_DIR)/$(MAKE_DIR)
+	$(COPY) $(MAKE_DIR)/Compilers $(COMPILER_DIR)/$(MAKE_DIR)/Compilers
+
+compiler_update:
+	$(KILL) $(COMPILER_DIR)/$(MAKE_PATH)/*
+	$(COPY) $(Make_Base) $(Make_Code) $(Make_Machine) $(COMPILER_DIR)/$(MAKE_DIR)
+	$(COPY) $(Make_Type)                              $(COMPILER_DIR)/$(MAKE_DIR)/Compilers
+	$(COPY) $(Make_OS)                                $(COMPILER_DIR)/$(MAKE_PATH)

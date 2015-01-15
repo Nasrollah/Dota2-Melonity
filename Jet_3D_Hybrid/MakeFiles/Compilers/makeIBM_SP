@@ -1,0 +1,46 @@
+#=========================================================================
+#               ---- ESSL Library ----
+
+ifeq ($(strip $(USE_ESSL_LIBRARY)),on)
+ ESSL_LIBRARY = -lesslsmp -lpesslsmp -lblacssmp
+#ESSL_LIBRARY = -lessl_r -lesslp2 -lpesslp2 -lblacsp2
+
+ ifeq ($(strip $(ESSL_OPTIMIZATION)),on)
+  ESSL_OPTION  = -qessl
+ endif
+endif
+
+LIBRARY += $(ESSL_LIBRARY)
+
+#=========================================================================
+#               ---- Math Library ----
+
+MATH_LIBRARY =
+
+#=========================================================================
+# Compiler Option
+
+ MOD_PATH    = $(MOD_OPTION)=$(PS_MODDIR) -I $(PS_MODDIR)
+
+ ADD_OPTION  = $(MATH_LIBRARY)
+ ADD_OPTION += $(ESSL_OPTION)
+ ADD_OPTION += $(Stack_Allocation)
+ ADD_OPTION += -qtune=auto -qarch=auto -qcache=auto
+ ADD_OPTION += -blpdata
+
+#-------------------------------------------------------------------------
+ifeq ($(strip $(PROFILE)),on)
+ ADD_OPTION += $(Profile_Flag)
+endif
+
+ifeq ($(strip $(DEBUG)),on)
+ ADD_OPTION += $(Debug_Flag)
+endif
+
+ifeq ($(strip $(WARNING)),on)
+ ADD_OPTION += $(Info_Flag)
+endif
+
+#-------------------------------------------------------------------------
+ADD_Option +=
+

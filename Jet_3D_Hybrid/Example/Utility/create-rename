@@ -1,0 +1,18 @@
+#! /bin/bash
+
+if [ -n "$1" ]
+then
+  X=$1
+else
+  X=1
+fi
+
+for file in `ls *.plt`
+
+do
+
+mv   $file Flow_$X.plt
+
+let X=X+1
+
+done

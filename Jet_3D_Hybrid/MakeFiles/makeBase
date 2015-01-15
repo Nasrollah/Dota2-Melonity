@@ -1,0 +1,23 @@
+#=========================================================================
+#
+
+MOVE    = mv    -f
+KILL    = rm    -fr
+LINK    = ln    -fs
+COPY    = cp    -p
+MAKEDIR = mkdir -p
+
+#=========================================================================
+#               ---- Archives ----
+
+Delete           = d
+Move_to_End      = m
+Print            = p
+Append           = q
+Replace          = r
+Table            = t
+Extract          = x
+Suppress_Warning = c
+Update           = u  used with r option
+
+ARCHIVE          = ar -rc

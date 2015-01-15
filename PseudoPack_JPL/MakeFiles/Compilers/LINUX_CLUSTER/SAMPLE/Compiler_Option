@@ -1,0 +1,69 @@
+#=========================================================================
+#               ---- Compiler Optimization Flag ----
+
+# Performance
+Pentium             = -tpp7 
+Pentium_Exculsive   = -xW
+Memory_Alignment    = -Zp16
+Prefetch            = -prefetch
+IP_Optimization     = -ip
+IP_Inlining         =                    
+Memory_Padding      = -nopad
+Loop_Unroll         = -unroll
+Math_Library        = 
+HostOptimize        = $(Memory_Alignment) 
+
+# Profile
+P_Profiling         = -p
+G_Profiling         = -pg
+Profile_DIR         = -prof_dir 
+Profile_Summary_DIR = -prof_file
+
+OpenMP              = -openmp
+OpenMP_Profile      = -openmp_profile
+OpenMP_Stubs        = -openmp_stubs
+OpenMP_Report       = -openmp_report 2
+
+Parallel_Threads    = -parallel
+Parallel_Report     = -par_report 3
+Parallel_Threshold  = -par_threshold 16
+
+FixedForm           = -FI
+FreeForm            = -FR
+Extended_Source     = -132
+
+Implicit_None       = -u
+Bound_Check         = -C
+Auto_Init           = -zero
+
+Syntex_Check        = -syntax
+
+#=========================================================================
+#               ---- Compiler Debug Flag ----
+
+ifeq ($(strip $(DEBUG)),on)
+ Optimization       = 
+
+ Debug              = -g -inline_debug_info
+ Listing            = -list 
+else
+ Optimization       = -O$(OPTIMIZATION_LEVEL) $(HostOptimize)
+endif
+
+ifeq ($(WARNING),on)
+ Message_Level      = -W1
+ Warning            = -w90,-w95   # -cm 
+endif
+
+#=========================================================================
+#               ---- CPP ----
+
+PreProcessor        = -cpp
+CPP                 = -D
+CPP_ONLY            = -P
+Debug_Line          = -DD
+
+#=========================================================================
+#               ---- Loader ----
+
+Loader_Phase        = -Wl,

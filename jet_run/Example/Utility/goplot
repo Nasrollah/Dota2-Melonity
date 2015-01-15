@@ -1,0 +1,10 @@
+#! /bin/csh
+
+mkdir Data
+
+foreach file ( *.dat )
+
+  preplot $file
+  mv $file Data
+
+end

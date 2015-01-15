@@ -1,0 +1,50 @@
+#                                  MACHINE 
+#=====================================================================================
+#
+# ID   SITE       TYPE           NAME            PROCESSOR       OS          COMPILER
+# ---- -----      -----          -----------     ---------       -------     --------
+# 2000 LLNL       IBM_SP         up              PowerPC         AIX         XLF95
+# 2001 LLNL       LINUX_CLUSTER  zeus            AMD-OPT64       LINUX       ifort
+# 2003 LLNL       LINUX_CLUSTER  thunder         Intel Itanium   LINUX       ifort
+ 
+# 5002    SDSU    LINUX_CLUSTER  blackbox        INTEL           LINUX       INTEL
+#
+ 
+#=====================================================================================
+
+ifeq ($(MACHINE_ID),2001)
+ SITE_ID           = LLNL
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = zeus
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+
+ifeq ($(MACHINE_ID),2003)
+ SITE_ID           = LLNL
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = thunder
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+
+ifeq ($(MACHINE_ID),5002)
+ SITE_ID           = SDSU
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = blackbox
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+
+ifeq ($(MACHINE_ID),6001)
+ SITE_ID           = JPL
+ MACHINE_TYPE      = LINUX_CLUSTER
+ MACHINE_NAME      = pfe21
+ MACHINE_PROCESSOR = INTEL
+ MACHINE_OS        = LINUX
+ MACHINE_COMPILER  = INTEL
+endif
+

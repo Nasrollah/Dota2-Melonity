@@ -1,0 +1,30 @@
+-----------------------------------------------------------------------------
+              <---  Output Information --->
+
+0         Graphic_Format (0=TecPlot    , 1=Matlab, 2=PLOT3D) 
+1           Data_Format (0=Distributed, 1=Single File)
+
+0           Write Initial Condition 
+1           Write Initial Movie 
+1           Write Initial MR_Flag
+1           Write Final   Condition 
+
+2           Screen Output Control (1-File, 2-File/Screen)
+
+5d-8        Movie   Timing Resolution
+5d-8  0 0   Restart Timing Resolution,Distributed Read/Write?
+
+
+!----------------------------------------------------------------------------
+0        Graphic_Format (0=TecPlot    , 1=Matlab, 2=PLOT3D) 
+1           Data_Format (0=Distributed, 1=Single File)
+
+1           Write Initial Condition 
+0           Write Initial Movie 
+0           Write Initial MR_Flag
+0           Write Final   Condition 
+
+1           Screen Output Control
+
+1000.0d-6         Movie Timing Resolution
+1000.0d-6 1 0   Restart Timing Resolution, Distributed Read/Write?

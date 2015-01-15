@@ -1,0 +1,77 @@
+ifeq ($(strip $(SITE_ID)),SDSU)
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+#  COMPILER_PATH = /home/jacobs/MPICH/MPICH2/bin/
+#  COMPILER_PATH = /home/jacobs/MPICH/MPICH2/bin/
+   COMPILER_PATH = /opt/intel/impi/3.2.0.011/bin64/
+
+  COMPILER_ALT  = -fc=ifort
+  COMPILER_VERSION = 80
+
+  C_COMPILER    = $(COMPILER_PATH)mpicc
+  F_COMPILER    = $(COMPILER_PATH)mpif90 $(COMPILER_ALT)
+
+  L_PATH        = 
+  L_LIB         = 
+ else
+  COMPILER_PATH = 
+  COMPILER_VERSION = 80
+
+  C_COMPILER    = $(COMPILER_PATH)icc
+  F_COMPILER    = $(COMPILER_PATH)ifort
+
+  L_PATH        =
+  L_LIB         =
+ endif
+endif
+
+ifeq ($(strip $(SITE_ID)),JPL)
+ ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+# COMPILER_PATH = /nasa/mvapich2/1.4.1/intel.sles11/bin/
+# COMPILER_ALT  = -f90=/nasa/intel/Compiler/2012.0.032/bin/
+  COMPILER_VERSION = 12
+
+  C_COMPILER    = $(COMPILER_PATH)mpicc
+  F_COMPILER    = $(COMPILER_PATH)mpif90 $(COMPILER_ALT)
+
+# L_LIB          = /usr/lib/mpi/lib/pgf90_farg.o -lF90 -lCEPCF90 -lPEPCF90
+# L_LIB         += -lmpi -lelan -lelan3 -lrmscall
+# L_PATH         = -Wl,-rpath=/opt/intel/Compiler/11.0/074/mkl/lib/em64t
+# LIB_PATH       = -L/opt/intel/Compiler/11.0/074/mkl/lib/em64t
+
+# LINEAR_SOLVER  = -lmkl_solver
+# LAPACK         = -lmkl_lapack 
+# MATH           = -lmkl -lguide -lpthread -lm
+
+# MATH_LIB  = $(L_PATH) $(LIB_PATH) $(LINEAR_SOLVER) $(LAPACK) $(MATH)
+ else
+  COMPILER_PATH = /nasa/intel/Compiler/2012.0.032/bin/
+# COMPILER_ALT  = -f90=/nasa/intel/Compiler/2012.0.032/bin/
+  COMPILER_VERSION = 12
+
+  C_COMPILER    = $(COMPILER_PATH)icc
+  F_COMPILER    = $(COMPILER_PATH)ifort
+
+# L_LIB         =
+# L_PATH         = -Wl,-rpath=/opt/intel/Compiler/11.0/074/mkl/lib/em64t
+# LIB_PATH       = -L/opt/intel/Compiler/11.0/074/mkl/lib/em64t
+# LINEAR_SOLVER  = -lmkl_solver
+# LAPACK         = -lmkl_lapack 
+# MATH           = -lmkl -lguide -lpthread -lm
+
+# MATH_LIB  = $(L_PATH) $(LIB_PATH) $(LINEAR_SOLVER) $(LAPACK) $(MATH)
+ endif
+endif
+
+#-----------------------------------------------------------
+#
+
+ CC              = $(C_COMPILER)
+ C_COMPILER_FLAG =
+
+ FF              = $(F_COMPILER)
+ F_COMPILER_FLAG =
+
+ LD              = $(FF)
+ LOADER_FLAG     =
+
+ LIB             = $(MATH_LIB)

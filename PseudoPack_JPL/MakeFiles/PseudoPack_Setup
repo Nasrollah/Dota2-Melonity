@@ -1,0 +1,87 @@
+#=========================================================================
+#  PseudoPack Directories Setup
+
+PS_DIR    = Library Module Listing Object
+PS_SUBDIR = $(PS_LIBDIR) $(PS_MODDIR) $(PS_LSTDIR) $(PS_OBJDIR)
+
+Tar_List   = Source MakeFiles Utility Include Example Document 
+Tar_List  += makelibrary README
+Tar_Source = $(Tar_List:%=$(PS_ROOT_DIR)/%)
+
+#-------------------------------------------------------------------------------
+ps_install:
+	for Sub_0 in $(PS_SUBDIR); do \
+	  $(KILL)    $$Sub_0; \
+	  $(MAKEDIR) $$Sub_0; \
+	done
+
+ps_remove:
+	$(KILL) *.F *.mod *.h *.o *.f
+	for Sub_0 in $(PS_DIR); do \
+	  $(KILL)    $$Sub_0; \
+	done
+
+ps_clean:
+	$(KILL) *.F *.mod *.h *.o *.f
+	for Sub_0 in $(PS_SUBDIR); do \
+	  $(KILL)    $$Sub_0/*; \
+	done
+
+ps_tar:
+	tar -cvf $(PS_Tar_DIR)$(PS_Tar_Filename).tar $(Tar_Source)
+	gzip     $(PS_Tar_DIR)$(PS_Tar_Filename).tar
+
+#-------------------------------------------------------------------------------
+
+System_Info:
+	@echo 
+	@echo ----- Compiling Program : Begin ---
+	@echo 
+	@echo Site ID  \ \ \ \ \ \ \ \ \  : $(SITE_ID)
+	@echo Machine Type \ \ \ \ \ : $(MACHINE_TYPE)
+	@echo Machine Name \ \ \ \ \ : $(MACHINE_NAME)
+	@echo Machine Processor : $(MACHINE_PROCESSOR)
+	@echo Machine OS      \ \ \ \ \ \  : $(MACHINE_OS)
+	@echo Machine Compiler \ : $(MACHINE_COMPILER)
+	@echo Machine ID      \ \ \ \ \ \  : $(MACHINE_ID)
+	@echo
+	@echo Program Name : $(TARGET)
+	@echo Program Path : $(CURDIR)
+	@echo
+	@echo Compiler \ \ \ \ \ \ \      : $(FF)
+	@echo Compiler Version      : $(COMPILER_VERSION)
+	@echo
+	@echo Compiler Library      : $(LIB) $(LIBRARY)
+	@echo
+	@echo Compiler Flag         : $(COMPILER_FLAG)
+	@echo
+	@echo Compiler CPP Option   : $(CPP_OPTION)
+	@echo
+	@echo Compiler User Defined : $(USER_DEFIND_OPTION)
+	@echo
+	@echo Compiler Additional   : $(ADD_OPTION)
+	@echo
+	@echo Compiler Module PATH  : $(MOD_PATH)
+	@echo
+	@echo Compiler Source PATH  : $(SRC_PATH)
+	@echo
+	@echo 
+
+System_Done:
+	@echo 
+	@echo ----- Compiling Program : Done  ---
+	@echo 
+
+Directory_Check:
+	@if (test ! -d $(PS_LIBDIR)); then                             \
+	 (echo ----- Install Library Directories : BEGIN ----        ; \
+	  echo                                                       ; \
+	  for Sub_0 in $(PS_SUBDIR); do                                \
+	    echo Creating Directory ..... $$Sub_0                    ; \
+	    $(KILL)    $$Sub_0                                       ; \
+	    $(MAKEDIR) $$Sub_0                                       ; \
+	  done                                                       ; \
+	  echo                                                       ; \
+	  echo -----                               DONE  ----        ; \
+	  echo                                                     ) ; \
+	fi

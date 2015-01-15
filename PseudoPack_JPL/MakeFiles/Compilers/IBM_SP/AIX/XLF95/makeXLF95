@@ -1,0 +1,25 @@
+ifeq ($(strip $(SITE_ID)),LLNL)
+ ifeq ($(strip $(MACHINE_COMPILER)),XLF95)
+  COMPILER_PATH =
+# COMPILER_ALT  = 
+
+  C_COMPILER    = $(COMPILER_PATH)cc
+  F_COMPILER    = $(COMPILER_PATH)mpxlf95_r $(COMPILER_ALT)
+
+  L_PATH        = -L /usr/local/lib 
+  L_LIB         = 
+ endif
+endif
+
+#--------------------------------------------------------------------
+#
+ CC              = $(C_COMPILER)
+ C_COMPILER_FLAG =
+
+ FF              = $(F_COMPILER)
+ F_COMPILER_FLAG =
+
+ LD              = $(FF)
+ LOADER_FLAG     =
+
+ LIB             = $(L_PATH) $(L_LIB)

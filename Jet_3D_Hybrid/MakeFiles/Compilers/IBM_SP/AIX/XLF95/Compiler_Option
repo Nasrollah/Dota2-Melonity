@@ -1,0 +1,68 @@
+#=========================================================================
+#               ---- Compiler Optimization Flag ----
+
+     General_Flag  = -qfree=f90 
+#    General_Flag += -qrealsize=8
+     General_Flag += -qautodbl=dbl4
+     General_Flag += -qinit=f90ptr -qinitauto=FF -qstrict
+#    General_Flag += -qfloat=fltint:rsqrt  
+#    General_Flag += -V -show
+
+ Optimization_Flag  = -O$(OPTIMIZATION_LEVEL)
+ Optimization_Flag += -Q -qmaxmem=-1
+#Optimization_Flag += -qhot
+
+     OPEN_MP_Flag  = -qsmp=noauto
+
+         CPP_Flag  = 
+
+         MPI_Flag  = 
+     Library_Flag  = 
+
+        Info_Flag  = 
+
+ifeq ($(strip $(DEBUG)),on)
+  Optimization_Flag  =
+endif
+
+         Debug_Flag  = -g -C -u
+         Debug_Flag += -qattr=full -qxref=full -qlist -qsource 
+         Debug_Flag += -qlist -qsource
+         Debug_Flag += -bloadmap:loadmap 
+#        Debug_Flag += -v
+
+       Profile_Flag  = -p 
+       Profile_Flag += -pg
+
+         MOD_OPTION  = -qmoddir
+#=========================================================================
+#               ---- CPP ----
+
+CPP               = -WF,-D
+CPP_ONLY          = -F
+
+#=========================================================================
+#               ---- Storage Methods ----
+
+Static            = -qsave
+Dynamic           = -qnosave
+
+#change the integer N in 0x0N0000000 from 1 to 8 to get 256*N MB.
+
+#Stack_Allocation  = -bmaxstack:0x70000000 -bmaxdata:0x70000000
+Large_Pages      = -blpdata
+
+#=========================================================================
+#               ---- Loader ----
+
+Loader_Phase        = 
+
+#=========================================================================
+#               ---- Compiler_Option ----
+
+ F_COMPILER_FLAG  = $(General_Flag)
+ F_COMPILER_FLAG += $(Optimization_Flag) 
+ F_COMPILER_FLAG += $(Library_Flag)
+#F_COMPILER_FLAG += $(MPI_Flag)
+     LOADER_FLAG  =
+

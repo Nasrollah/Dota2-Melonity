@@ -1,0 +1,69 @@
+#! /bin/bash
+
+if [ -n "$1" ] ; then
+ m=$1
+else
+ m=5
+fi
+
+ n=$((m-1))
+
+for x in `ls *[0-9].plt`
+do
+
+ y="${x%_*}_" 
+#z="${x%_*}0" 
+ z="${y}0"
+
+ rename $y $z $y?.plt
+
+if [ $n -le 1 ] ; then 
+ exit 
+fi
+
+ rename $y $z $y??.plt
+
+if [ $n -le 2 ] ; then 
+ exit 
+fi
+
+ rename $y $z $y???.plt
+
+if [ $n -le 3 ] ; then 
+ exit 
+fi
+
+ rename $y $z $y????.plt
+
+if [ $n -le 4 ] ; then 
+ exit 
+fi
+
+ rename $y $z $y?????.plt
+
+if [ $n -le 5 ] ; then 
+ exit 
+fi
+
+ rename $y $z $y??????.plt
+
+if [ $n -le 6 ] ; then
+ exit 
+fi
+
+ rename $y $z $y???????.plt
+
+if [ $n -le 7 ] ; then
+ exit 
+fi
+
+ rename $y $z $y????????.plt
+
+if [ $n -le 8 ] ; then
+ exit 
+fi
+
+ rename $y $z $y?????????.plt
+
+ exit
+done

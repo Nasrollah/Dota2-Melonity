@@ -1,0 +1,4 @@
+1.  For the xlf_95 compiler on the IBM_SP system, do not use compiler switch -qrealsize=8
+    with MPI send and recieved.   See the Example MPI_Send_Recv_Bug.F in the Bugs directory.
+
+   

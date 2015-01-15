@@ -1,0 +1,270 @@
+                     Intel(R) Fortran Compiler Help
+                     ==============================
+
+usage: ifc [options] file1 [file2 ...]
+
+  where options represents zero or more compiler options
+
+        fileN is a Fortran source (.f .for .ftn .f90 .fpp), assembly (.s),
+            object (.o), static library (.a), or other linkable file
+
+
+  Commonly used options may be placed in the ifc.cfg file.
+
+                       Compiler Option List
+                       --------------------
+Performance
+-----------
+-O1    enable optimizations (DEFAULT)
+-O2    same as -O1
+-O3    enable -O2 plus more aggressive optimizations that may not improve
+       performance for all programs
+-O0    disable optimizations
+-O     same as -O1
+-falias       assume aliasing in program (DEFAULT)
+-fno-alias    assume no aliasing in program
+-ffnalias     assume aliasing within functions (DEFAULT)
+-fno-fnalias  assume no aliasing within functions, but assume aliasing across
+              calls
+-fp           disable using EBP as general purpose register
+-mp           maintain floating point precision (disables some optimizations)
+-mp1          improve floating-point precision (speed impact is less than -mp)
+-prec_div     improve precision of floating-point divides (some speed impact)
+-fp_port      round fp results at assignments & casts (some speed impact)
+-pc32         set internal FPU precision to 24 bit significand
+-pc64         set internal FPU precision to 53 bit significand
+-pc80         set internal FPU precision to 64 bit significand (DEFAULT)
+-rcd          rounding mode to enable fast float-to-int conversions
+-tpp5  optimize for Pentium(R) processor
+-tpp6  optimize for Pentium(R) Pro, Pentium(R) II and Pentium(R) III processors
+-tpp7  optimize for Pentium(R) 4 processor (DEFAULT)
+-ax<codes> generate code specialized for processor extensions specified by
+           <codes> while also generating generic IA-32 code.  <codes> includes
+           one or more of the following characters:
+    i  Pentium Pro and Pentium II processor instructions
+    M  MMX(TM) instructions
+    K  streaming SIMD extensions
+    W  Pentium(R) 4 New Instructions
+-x<codes>  generate specialized code to run exclusively on processors
+           supporting the extensions indicated by <codes> as described above.
+
+Advanced Performance
+--------------------
+Enable and specify the scope of Interprocedural (IP) Optimizations:
+-ip     enable single-file IP optimizations (within files)
+-ipo    enable multi-file IP optimizations (between files)
+-ipo_c  generate a multi-file object file (ipo_out.o)
+-ipo_S  generate a multi-file assembly file (ipo_out.s)
+
+Modify the behavior of IP:
+-ip_no_inlining    disable full and partial inlining (requires -ip or -ipo)
+-ip_no_pinlining   disable partial inlining (requires -ip or -ipo)
+-ipo_obj           force generation of real object files (requires -ipo)
+
+Other Advanced Performance Options:
+-nolib_inline disable inline expansion of intrinsic functions
+-pad        enable changing variable and array memory layout
+-nopad      disable(DEFAULT) changing variable and array memory layout
+-unroll[n]  set maximum number of times to unroll loops.  Omit n to use
+            default heuristics.  Use n=0 to disable loop unroller.
+
+-safe_cray_ptr  Cray pointers do not alias with other variables
+-prof_dir <d>   specify directory for profiling output files (*.dyn and *.dpi)
+-prof_file <f>  specify file name for profiling summary file
+-prof_gen       instrument program for profiling
+-prof_use       enable use of profiling information during optimization
+-qp             compile and link for function profiling with UNIX gprof tool
+-p              same as -qp
+
+-vec_report[n]  control amount of vectorizer diagnostic information:
+            n=0 no diagnostic information
+            n=1 indicate vectorized loops (DEFAULT)
+            n=2 indicate vectorized/non-vectorized loops
+            n=3 indicate vectorized/non-vectorized loops and prohibiting
+                data dependence information
+            n=4 indicate non-vectorized loops
+            n=5 indicate non-vectorized loops and prohibiting data
+                dependence information
+
+-opt_report               generate an optimization report to stderr
+-opt_report_file<file>    specify the filename for the generated report
+-opt_report_level[level]  specify the level of report verbosity (min|med|max)
+-opt_report_phase<name>   specify the phase that reports are generated against
+-opt_report_routine<name> reports on routines containing the given name
+-opt_report_help          display the optimization phases available for 
+                          reporting
+
+-tcheck               generate instrumentation to detect multi-threading bugs
+                      (requires Intel(R) Threading Tools; cannot be used with
+                      compiler alone)
+-openmp               enable the compiler to generate multi-threaded code
+                      based on the OpenMP directives
+-openmp_profile       link with instrumented OpenMP runtime library to
+                      generate OpenMP profiling information for use with the
+                      OpenMP component of the VTune(TM) Performance Analyzer
+-openmp_stubs         enables the user to compile OpenMP programs in
+                      sequential mode.  The openmp directives are ignored and
+                      a stub OpenMP library is linked (sequential)
+-openmp_report{0|1|2} control the OpenMP parallelizer diagnostic level
+-[no]stack_temps      arrays may be allocated on the stack, where possible,
+                      by the compiler.  -nostack_temps is the default.
+
+-parallel             enable the auto-parallelizer to generate multi-threaded
+                      code for loops that can be safely executed in parallel
+-par_report{0|1|2|3}  control the auto-parallelizer diagnostic level
+-par_threshold[n]     set threshold for the auto-parallelization of loops
+                      where n is an integer from 0 to 100
+
+-prefetch[-]    enable(DEFAULT)/disable prefetch insertion
+-scalar_rep[-]  enable(DEFAULT)/disable scalar replacement (requires -O3)
+-ansi_alias[-]        enable(DEFAULT)/disable use of ANSI aliasing rules in
+                      optimizations; user asserts that the program adheres to
+                      these rules
+-complex_limited_range[-] enable/disable(DEFAULT) the use of the basic
+                       algebraic expansions of some complex arithmetic
+                       operations.  This can allow for some performance
+                       improvement in programs which use a lot of complex
+                       arithmetic at the loss of some exponent range.
+Output, Debug
+-------------
+-c         compile to object (.o) only, do not link
+-S         compile to assembly (.s) only, do not link (*I)
+-use_asm   produce objects through assembler
+-use_msasm Support Microsoft style assembly language insertion using MASM
+           style syntax
+-fcode-asm produce assembly file with optional code annotations (requires -S)
+-fsource-asm produce assembly file with optional code annotations (requires -S)
+-f[no]verbose-asm produce assembly file with compiler comments (DEFAULT)
+           (requires -S)
+-list      print source listing on stdout
+-list -show include
+           print source listing on stdout with INCLUDE files expanded
+-o<file>   name output file
+-g         produce symbolic debug information in object file
+-inline_debug_info preserve the source position of inlined code instead
+           of assigning the call-site source position to inlined code
+
+Fortran Preprocessor
+--------------------
+-D<name>[=<text>]  define macro
+-E         preprocess to stdout
+-EP        preprocess to stdout omitting #line directives
+-P, -F     preprocess to file omitting #line directives
+-fpp[n]    run Fortran preprocessor on source files prior to compilation
+     n=0   disable CVF and # directives, equivalent to no fpp
+     n=1   enable CVF conditional compilation and # directives (DEFAULT)
+     n=2   enable only # directives
+     n=3   enable only CVF conditional compilation directives
+-cpp[n]    same as -fpp[n]
+-I<dir>    add directory to include file search path
+-U<name>   remove predefined macro
+-X         remove standard directories from include file search path
+
+FCE/Component Control
+---------------------
+-Qoption,<str>,<opts>   pass options <opts> to tool specified by <str>
+-Qlocation,<str>,<dir>  set <dir> as the location of tool specified by <str>
+-Qinstall <dir>         set <dir> as root of compiler installation
+
+Language
+--------
+-i2            set default KIND of integer variables is 2
+-i4            set default KIND of integer variables is 4
+-i8            set default KIND of integer variables is 8
+-r8            set default size of REAL to 8 bytes
+-r16           set default size of REAL to 16 bytes
+-autodouble    same as -r8
+
+-DD            compile debug statements (indicated by D in column 1)
+-DX            compile statements that have X in column 1
+-DY            compile statements that have Y in column 1
+
+-FR            specifies source files are in free format
+-FI            specifies source files are in fixed format
+-72            specify 72 column lines for fixed form sources
+-80            specify 80 column lines for fixed form sources
+-132           specify 132 column lines for fixed form sources
+-extend_source same as -132
+-pad_source    make compiler acknowledge blanks at the end of a line
+-dps           enable DEC* PARAMETER statement recognition (DEFAULT)
+-nodps         disable DEC* PARAMETER statement recognition
+
+-1, -onetrip      execute any DO loop at least once
+-auto             make all local variables AUTOMATIC
+-auto_scalar      make scalar local variables AUTOMATIC (DEFAULT)
+-save             save all variables (static allocation); opposite of -auto
+-u, -implicitnone set IMPLICIT NONE by default
+-common_args      assume "by reference" subprogram arguments may alias one
+                  another
+-vms              enable VMS and DEC statement extensions
+-zero             implicitly initialize all data to zero
+
+-C       enable extensive runtime error checking (-CA, -CB, -CS, -CU, -CV)
+-CA      runtime checks for nil pointer/allocatable array refs
+-CB      runtime checks for out-of-bounds array subscript/substring refs
+-CS      runtime checks for consistent shape of intrinsic procedure array args
+-CU      runtime checks for uninitialized variables
+-CV      runtime checks for formal/actual parameter correspondence
+-d<n>    set level of diagnostics
+
+-Qdyncom"blk1,blk2,..."  make given common blocks dynamically-allocated
+-Qloccom"blk1,blk2,..."  make given common blocks locally-allocated
+
+-nbs          treat backslash as a normal character, not an escape character
+-nus          do not append an underscore to external subroutine names
+-nus[,<file>] do not append an underscore to subroutine names listed in <file>
+-lowercase    change routine names to all lowercase (DEFAULT)
+-uppercase    change routine names to all uppercase
+-[no]align    analyze and reorder memory layout for variables and arrays
+-Zp[n]        specify alignment constraint for structures (n=1,2,4,8,16)
+-y, -syntax   perform syntax check only
+
+Compiler Diagnostics
+--------------------
+-cerrs[-]  enable/disable(DEFAULT) terse format for diagnostic messages
+-cm        suppress all comment messages
+-q         suppress printing errors to stderr
+-w         disable all warnings
+-Wn        disable warnings (n=0) or show warnings (n=1, DEFAULT)
+-WB        issue a warning instead of an error for out-of-bounds array
+           references
+-w90, -w95 suppress messages about use of non-standard Fortran
+-e90, -e95 issue errors for non-standard Fortran
+
+Miscellaneous
+-------------
+-help         print this help message
+-V            display compiler version information
+-sox[-]       enable/disable(DEFAULT) saving of compiler options and version
+              in the executable
+-dryrun       show driver tool commands but do not execute tools
+-v            show driver tool commands and execute tools
+-Tf<file>     compile file as Fortran source
+-nobss_init   disable placement of zero-initialized variables in BSS (use DATA)
+-Kpic, -KPIC  generate position independent code
+-fpic, -fPIC  generate position independent code
+-0f_check     enable the patch for the Pentium 0f erratum
+
+Linking/Linker
+--------------
+-L<dir>        instruct linker to search <dir> for libraries
+-i_dynamic     link Intel provided libraries dynamically
+-dynamic-linker<file>
+               select dynamic linker other than the default
+-no_cpprt      do not link in C++ runtime libraries
+-nodefaultlibs do not use standard libraries when linking
+-nostartfiles  do not use standard startup files when linking
+-nostdlib      do not use standard libraries and startup files when linking
+-static        prevents linking with shared libraries
+-shared        produce a shared object
+-static-libcxa link Intel libcxa C++ library statically
+-shared-libcxa link Intel libcxa C++ library dynamically, overrides the default
+-Xlinker <val> pass <val> directly to the linker for processing
+-Wl,<o1>[,<o2>,...] pass options o1, o2, etc. to the linker for processing
+-C90           link with alternate I/O library for mixed output with C
+-posixlib      link with POSIX library
+-Vaxlib        link with portability library
+
+Copyright (C) 1985-2003, Intel Corporation.  All rights reserved.
+
+* Other brands and names are the property of their respective owners.

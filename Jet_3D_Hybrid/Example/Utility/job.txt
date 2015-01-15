@@ -1,0 +1,21 @@
+FILE QUARANTINED
+
+------------- ATTENTION ------------
+
+The following message was inserted by JPL UMS Forefront Security. A file attachment has been removed from this message for the following reason: 
+Possible Malicious Email Content Detected.
+
+File name: "Jet_3D_Hybrid-03-07-2014.tar.gz->->Jet_3D_Hybrid/Example/Utility/job.cmd"
+
+Filter name: "FILE FILTER= JPL Attachment Policy: *.cmd"
+
+Please note:
+Any URLs or hyperlinks included in the original message above should be considered potentially malicious.
+
+For JPL users: 
+For assistance, please submit a Service Request or call the JPL Unified Service Desk at 4-HELP (818-354-4357).
+
+Thank you,
+JPLIT Operations
+
+------------- ATTENTION ------------

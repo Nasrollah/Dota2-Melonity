@@ -1,0 +1,19 @@
+#! /bin/bash
+
+if [ -n "$1" ]
+then
+  X=$1
+else
+  X=1
+fi
+
+for file in `ls *.plt`
+
+do
+
+ln -s $file Particle_$X.plt
+#mv   $file Flow_$X.plt
+
+let X=X+1
+
+done

@@ -1,0 +1,26 @@
+              <---  Injector          -->
+-----------------------------------------------------------------------------
+                  << Jet Specification >>
+3             Direction                  : 1-x, 2-y, 3-z
+
+0             Shape                      : 0-Circle 1-Rectangular
+
+0 0 0           Center                     : (x, y, z)
+2.5d-4            Circle Shape               : Radius           (m)
+0.1 0.1         Square Shape               : (Width, Height)  (m)
+1d-4            Height      (>= 0          : Height           (m)
+
+2               Mach
+2000            Reynold Number
+
+0.348432056     Density                    : Rho        (kg/m^3)
+0 0 896.4373932 Velocity                   : (U, V, W)  (m/s)      (NOT USED)
+0.5d5           Pressure                   :  P         (N/m^2)
+500             Temperature                :  T         (K)
+1               Mass Fraction              : f1
+1.4             Gamma                      : Gamma
+287             Gas Constant               : R          (J/Kg K)
+
+1.51d-5         Dynamic Viscosity          : mu         (m^2/s)
+2.60d-2         Conductivity               : kappa      (W/m K)
+1.51d-5         Molecular Diffusivity      : zeta

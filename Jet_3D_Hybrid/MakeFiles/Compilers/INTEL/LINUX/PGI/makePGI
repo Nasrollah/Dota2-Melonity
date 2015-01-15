@@ -1,0 +1,32 @@
+ifeq ($(strip $(SITE_ID)),IMPA)
+ ifeq ($(strip $(MACHINE_COMPILER)),PGI)
+   ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+     COMPILER_PATH = 
+
+     C_COMPILER    = $(COMPILER_PATH)mpiCC
+     F_COMPILER    = $(COMPILER_PATH)mpif90
+
+     LIB_PATH      = -L /opt/local/petsc-2.3.1-p12/externalpackages/blacs-dev/linux86-64 -lblacs
+     LIB           = -lbacs 
+   else
+     COMPILER_PATH = 
+
+     C_COMPILER    = $(COMPILER_PATH)pgCC
+     F_COMPILER    = $(COMPILER_PATH)pgf95
+   endif
+ endif
+endif
+
+#--------------------------------------------------------------------
+
+ CC             = $(C_COMPILER)
+ C_COMPILEFLAGS = 
+
+ FF             = $(F_COMPILER)
+ F_COMPILEFLAGS = 
+
+ LD             = $(FF)
+ LOADERFLAGS    = 
+
+ LIBPATH        = $(LIB_PATH)
+ LIBS           = $(LIB)

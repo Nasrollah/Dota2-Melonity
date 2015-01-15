@@ -1,0 +1,166 @@
+Note : 1. source script file
+             thunder_cshrc 
+          if you have problem with preplot on thunder
+       2. tecplot is alias to tecplot version 11.0 in an interactive mode:
+            tecplot -mesa 
+       3. b_tecplot is alias to tecplot version 11.0 in a batch mode: 
+            tecplot -mesa -b -p 
+
+Tecplot Subdirectories
+  Macro  files are located in subdirectory  Macro
+  Layout files are located in subdirectory  Layout
+  Style  files are located in subdirectory  Style
+  Movie  files are located in subdirectory  Movie
+  Figure files are located in subdirectory  Figure
+
+Note : Edit the paths in the Marco file for the location of the 
+       data files and output files.
+
+---DATA Preparation--------------------------------------------------------
+
+HERE assume that the data files are called fileheader_xxxxx.dat.  
+xxxxx is some numerical number attached with the filename.
+In the following example, the fileheader is SP_2D_Zico_.  It can be anything.
+
+0.  Create two subdirectory  Flow and Particle
+
+0.1 Move the particle data files *_p.dat into the Particle subdirectory 
+      (mv *_p.* Particle)
+
+0.2 Move the fluid data files *.dat into the Flow subdirectory 
+      (mv *.* Particle)
+
+0.3 Perform the following step 1-7 for both data files in the Particle and 
+    Flow subdirectories.
+
+1. Preplot all the data files by running the script
+     goplot 
+   or simply do it manually
+     preplot SP_2D_Zico_xxxxx.dat
+
+   The .dat files will be moved to the temporary storage 
+   in the subdirectory Data as soon as the corresponding plt files were created.
+
+   The Shell script  deletedat can be used to remove the .dat file which were
+   already been preploted.
+
+  Note : Once the SP_2D_Zico_xxxxx.plt file is created, 
+              the SP_2D_Zico_xxxxx.dat file can be 
+         deleted or moved to other location for temporary storage.
+
+  Note : Becareful to make sure that all SP_2D_Zico_xxxxx.plt files are created 
+         correctly before deleting the original data files.
+
+2. Reorder the SP_2D_Zico_xxxxx.plt files in the correct numerical order, 
+   run the script
+     reorder [n]
+   where n (default 5) is an optional that determine the total number 
+   of integers in the filename together with the padded zeros if needed. 
+
+   For example, command
+     reorder 4
+   will generate a file SP_2D_Zico_0031.plt from a file SP_2D_Zico_31.plt.
+
+3. Rename and sequencize all the SP_2D_Zico_xxxxx.plt to Flow_n.plt, run script
+     renumber [n]
+   where n (default 1) is an optional argument that determine 
+     the starting number.
+
+   For example, command
+     renumber 1000
+   will generate the file Flow_1000.plt, Flow_1001.plt .... 
+   from the files SP_2D_Zico_xxxx.plt in the same order 
+   as appeared in the ls command.
+
+4. As an alternative, run the script 
+     filelist
+   which will generate two script files Data_List and Flow_List.
+   These two files take a snapshot of the current state of the plt files.
+   They are also designed to rename the SP_2D_Zico_xxxxx.plt to Flow_n.plt and vice
+   versa.  Do not delete both files as it is almost impossible to recover
+   the original filename SP_2D_Zico_xxxxx.plt if both files are missing.
+
+6. In additionally, the script
+     create-rename 
+   can be used to rename SP_2D_Zico_xxxxx.plt to Flow_n.plt.
+
+   WARNING : Use with extreme caution as the original filename 
+               SP_2D_Zico_xxxxx.plt will be lost forever.
+
+7. Allternatively, the script
+     create-link
+   can be used to create a symbolic link from Flow_n.plt to SP_2D_Zico_xxxxx.plt.
+
+   It is a safer approach than create-rename.
+
+---------TECPLOT-------------------------------------------------
+
+8.  Create an overall layout file for each interested variable and
+    saved with an unique name in the subdirectory TecPlot/Layout.
+
+9.  a) To create an animation interactively, Edit the paths in the macro file
+         Create_Movie.mcr 
+
+    b) To create an animation in batch mode, Edit the paths and data in the
+       macro file
+         Batch_Movie.mcr
+
+10. a) To create figures interactively, Edit the paths in the macro file
+         Create_Figure.mcr 
+
+    b) To create figures in batch mode, Edit the paths and data in the
+       macro file
+         Batch_Figure.mcr
+
+-----------------------------------------------------------------------
+
+The script files for preparing the data file for tecplot are
+
+1.  goplot        Preplot the data .dat files into .plt files format and
+                    move the data .dat files into the subdirectory Data.
+
+2.  deletedat     Remove all .dat data files if the corresponding 
+                  .plt files existed.
+
+3.  reorder       Pad the .plt file with 0 for proper ordering 
+                  when listed with ls command
+
+4.  renumber      Link (ln) the .plt files in order and rename them to 
+                  Flow_n.plt for processes with Tecplot marco in creating
+                  movies or figures.
+
+5.  Flow-List     Create a snapshot of the corresponding plt files and 
+    Particle_List Flow_n.plt.
+
+                  It will generate two script files Data_List and Flow_List 
+                  which can be used to switch between the original plt filename
+                  and Flow_n.plt filename and vice versa. 
+
+                  Could be used in place of script   renumber  . 
+
+6.  create-link   Create a symoblic link (ln) of each .plt files as Flow_n.plt 
+                  after executed  script reorder.  
+
+                  Could be used in place of script   renumber  . 
+
+7.  create-rename Rename (mv)                    each .plt files as Flow_n.plt 
+                  after executed  script reorder. 
+
+                  Could be used in place of script   renumber  . 
+
+                  Caution: It is impossible to regain the original .plt 
+                           filename afterward.
+
+--Addtional Information-----------------------------------------------------
+Note : To start with numbering of the Flow_n.plt from the default number 1
+       in scripts
+         filelist, renumber, reorder, create-rename, create-link,
+       appends an optional number n after the script such as 
+         renumber n   .  
+
+       For example, n=10,
+         renumber 10
+       would create an sequence of files in the order of 
+         Flow_10.plt, Flow_11.plt, ...
+       instead of the default files in the order of
+         Flow_1.plt, Flow_2.plt......

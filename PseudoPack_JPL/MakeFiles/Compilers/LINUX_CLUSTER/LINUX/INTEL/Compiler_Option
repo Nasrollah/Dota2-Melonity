@@ -1,0 +1,64 @@
+
+#=========================================================================
+#               ---- Compiler Optimization Flag ----
+
+#    General_Flag  = -free -u -zero
+     General_Flag  = -FR -u 
+     General_Flag += -r8 -real_size 64 -fpconstant
+     General_Flag += -i4 
+#    General_Flag += -i8 
+#    General_Flag += -i8 -integer_size 64
+#    General_Flag += -auto -auto_scalar
+#    General_Flag += -save
+#    General_Flag += -pc80
+#    General_Flag += -tpp7
+#    General_Flag += -V 
+
+ Optimization_Flag  = -O$(OPTIMIZATION_LEVEL)
+#Optimization_Flag += -unroll -Zp16 -align
+ Optimization_Flag +=         -Zp16 -align
+#Optimization_Flag += -prefetch
+#Optimization_Flag += -ip -pad 
+
+    Parallel_Flag  = -parallel -par_report 3 -par_threshold 16
+      OpenMP_Flag  = -openmp -openmp_profile -openmp_stubs -openmp_report 2
+
+         CPP_Flag  = -cpp 
+
+ifeq ($(strip $(PARALLEL_OR_SERIAL)),Parallel)
+     Library_Flag  = 
+endif
+
+        Info_Flag  = -W1 
+#       Info_Flag += -w90,-w95
+
+ifeq ($(strip $(DEBUG)),on)
+  Optimization_Flag  =
+endif
+         Debug_Flag  = -g -C -u -list
+
+ Profile_Dir         = 
+ Profile_Summary_Dir = 
+ Profile_Flag        = -pg $(Profile_Dir) $(Profile_Summary_Dir)
+
+         MOD_OPTION  = -module
+
+#=========================================================================
+#               ---- CPP ----
+
+CPP                 = -D
+CPP_ONLY            = -F
+Debug_Line          = -DD
+
+#=========================================================================
+#               ---- Loader ----
+        
+Loader_Phase        = -Wl,
+
+#=========================================================================
+#               ---- Compiler_Option ----
+         
+ F_COMPILER_FLAG  = $(General_Flag) $(CPP_Flag)
+ F_COMPILER_FLAG += $(Optimization_Flag) 
+ F_COMPILER_FLAG += $(Library_Flag)
+     LOADER_FLAG  =  
